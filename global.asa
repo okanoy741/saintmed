@@ -1,0 +1,66 @@
+<script language="vbscript" runat="server">
+
+
+
+ 
+
+ 
+
+
+
+Sub Application_OnStart
+Application("visitors")=0
+End Sub
+Application("DNS") = "Provider=Microsoft.Jet.OLEDB.4.0; Data Source=d:/saintmedMirror/data/sm.mdb; Jet OLEDB:Database Password=saintmedCC;"
+Application("DNS2") = "Provider=Microsoft.Jet.OLEDB.4.0; Data Source=d:/saintmedMirror/web/waveportal/smlink.mdb; Jet OLEDB:Database Password=saintmedCC;"
+Application("DNS3") = "Provider=Microsoft.Jet.OLEDB.4.0; Data Source=d:/saintmedMirror/data/req.mdb; Jet OLEDB:Database Password=saintmedCC;"
+Application("DNS4") = "Provider=Microsoft.Jet.OLEDB.4.0; Data Source=d:/saintmedMirror/data/timestampdb.mdb;"
+Application("DNS5") = "Provider=Microsoft.Jet.OLEDB.4.0; Data Source=d:/saintmedMirror/data/saintlog.mdb;"
+Application("DNS6") = "Provider=Microsoft.Jet.OLEDB.4.0; Data Source=d:/saintmedMirror/data/b1.mdb;"
+Application("DNS7") = "Provider=Microsoft.Jet.OLEDB.4.0; Data Source=d:/saintmedMirror/data/b2.mdb;"
+
+Application("DNSAP") = "Provider=SQLOLEDB.1;Persist Security Info=False;User ID=sa; password = Sapb1 ; Initial Catalog=newsm;Data Source=192.168.0.4"
+Application("BI") = "Provider=SQLOLEDB.1;Persist Security Info=False;User ID=saintmed_it; password = P@ssw0rd#1 ; Initial Catalog=newsm;Data Source=192.168.0.6"
+Application("db_location") = "d:/saintmedMirror/data/" 
+application("root") = "d:/saintmedMirror/web/" 
+application("root2") = "d:\saintmedMirror\web\"
+application("wp") = "d:/saintmedMirror/web/waveportal/"
+application("uploads") = "d:\saintmedmirror\uploads" 
+application("uploads2") = "d:/saintmedmirror/uploads" 
+application("datecode") = "5"
+application("energyindex") = "0"
+application("energyindex2") = "0"
+application("datecode2") = "2"
+application("fdate") = "1/1/2443"
+application("adddyear") = "543"
+application("imglocation") = "e:/wwwroot/saintmednet/saintmed.net/web/images/"
+application("textlocation") = "d:/saintmedMirror/web/text/"
+application("theme") = "red"
+application("stockbaselinedate") = "13/11/2015"
+application("stockcheckid") = "20"
+application("yearto") = "2021"
+
+
+Sub Session_OnStart
+Application.Lock
+Application("visitors")=Application("visitors")+1
+Application.UnLock
+
+' aspemail
+ 
+	Set Session("arrTo")  = Server.CreateObject("Scripting.Dictionary")
+	Set Session("arrCC")  = Server.CreateObject("Scripting.Dictionary")
+	Set Session("arrBCC")  = Server.CreateObject("Scripting.Dictionary")
+	Set Session("arrFiles")  = Server.CreateObject("Scripting.Dictionary")
+	Session("Count") = 0	' to generate unique keys for the dictionaries
+	
+
+End Sub
+
+Sub Session_OnEnd
+Application.Lock
+Application("visitors")=Application("visitors")-1
+Application.UnLock
+End Sub
+
+</script>
