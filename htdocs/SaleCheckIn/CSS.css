@@ -62,7 +62,18 @@ table {
 	border-collapse: collapse; 
 	counter-reset: rowNumber;
 }
-
+.green{ 
+	color:#FFFFFF;
+	background-color: green;
+}
+.yellow{ 
+	color:black; 
+	background-color: #f0bc00;
+}
+.red{ 
+	color:#FFFFFF;
+	background-color: red;
+}
 .form1 {
 	display:inline;
 	width:45%;
@@ -73,7 +84,28 @@ table {
 	display:inline;
 	width:45%;
 }
-
+#serchBox{
+	width: 50%;
+	background-color: #f0efef;
+	margin: 0 20%;
+}
+#serchBox2,
+#serchBox2 a{
+	width: 15%;
+	background-color: #094cb5;
+	margin: 0 37%;
+	padding: 0.5%;
+	text-align: center;
+	color: #FFFFFF;
+	border-radius: 0.5rem;
+	text-decoration: none;
+}
+#serchBox2:hover,
+#serchBox2:hover a{
+	transition: 0.5s;
+	background-color: #05347c;
+	text-decoration: none;
+}
 
 
 .countdown-label {
@@ -1366,14 +1398,14 @@ ul#nav {
 		font-size: 1.4em;
 	}
 	.name-wrap_report .btn_req2{
-	width: 100%;
-	margin: 0% 42%;
-	color: #fff;
-	background: #003389;
-	border-radius: 0.5rem;
-	padding: 1%;
-	clear: both;
-}
+		width: 100%;
+		margin: 0% 42%;
+		color: #fff;
+		background: #003389;
+		border-radius: 0.5rem;
+		padding: 1%;
+		clear: both;
+	}
 
 
 }
@@ -1402,14 +1434,14 @@ ul#nav {
 		font-size: 0.62em;
 	}
 	.name-wrap_report .btn_req2{
-	width: 100%;
-	margin: 0% 35%;
-	color: #fff;
-	background: #003389;
-	border-radius: 0.5rem;
-	padding: 1%;
-	clear: both;
-}
+		width: 100%;
+		margin: 0% 35%;
+		color: #fff;
+		background: #003389;
+		border-radius: 0.5rem;
+		padding: 1%;
+		clear: both;
+	}
 
 	
 
