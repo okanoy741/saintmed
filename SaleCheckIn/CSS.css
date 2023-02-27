@@ -770,6 +770,7 @@ td a{
 	border-color: #d5e8ff;
 	color: #FFFFFF;
 	font: inherit;
+	border-radius: 0.5rem;
 }
 td #q_link{
 	border-color: #d5e8ff;
