@@ -5,7 +5,7 @@ include "head.php";
     <p id ="headr2">ข้อมูลการจับคู่เลขที่สินค้ากับเลขที่ อย.</p>
     <form name="search" action='../FDA/search.php?' method="POST">
         <br><br>
-        <input name="search" type="text" id="serchBox" placeholder="--- Search (SAPcode / ใบอนุญาต / เลขเอกสาร FDA) ---"> <br><br>
+        <input name="search" type="text" id="serchBox" placeholder="--- Search (SAPcode / ใบอนุญาต) ---"> <br><br>
         <a href='../FDA/All_FDA.php'><div id="serchBox2"> clear filter</div></a> <br>
     </form>
 </div>
@@ -50,7 +50,6 @@ include "head.php";
         <th>รุ่น</th>
         <th>สถานะอย.</th>
         <th>เลขที่ใบจดแจ้งรายการละเอียด / ใบอนุญาต</th>
-        <th>เลขเอกสาร</th>
         <th>วัน/เดือน/ปี หมดอายุ</th>
         <th>หมดอายุในอีก</th>
         </tr>
@@ -66,7 +65,6 @@ include "head.php";
               default : echo "<td style= width:4%;> มี </td>";
           }
           echo "<td style= width:11%;>". $row['FDA_NO'] ."</td>";
-          echo "<td style= width:11%;>". $row['FDA_DOCNO'] ."</td>";
           echo "<td style= width:9%;>". date("d-m-Y", strtotime($row['FDA_EXPIRED'])) ."</td>";
 
           
@@ -129,7 +127,6 @@ include "head.php";
     <th>รุ่น</th>
     <th>สถานะอย.</th>
     <th>เลขที่ใบจดแจ้งรายการละเอียด / ใบอนุญาต</th>
-    <th>เลขเอกสาร</th>
     <th>วัน/เดือน/ปี หมดอายุ</th>
     <th>หมดอายุในอีก</th>
     </tr>
@@ -144,7 +141,6 @@ include "head.php";
           default : echo "<td style= width:4%;> มี </td>";
       }
       echo "<td style= width:12%;>". $row2['FDA_NO'] ."</td>";
-      echo "<td style= width:9%;>". $row2['FDA_DOCNO'] ."</td>";
       echo "<td style= width:7%;>". date("d-m-Y", strtotime($row2['FDA_EXPIRED'])) ."</td>";
       $date1= date_create("$date");
       $date2= date_create(" ".$row2['FDA_EXPIRED']." ");
@@ -179,7 +175,7 @@ elseif (!empty($_GET)) {
     $query = "SELECT fda_item.*, OITM.ItemName, OITM.U_brand
     FROM [it_project].[dbo].[fda_item] 
     LEFT JOIN [sap_smd].[dbo].[OITM] ON fda_item.ItemCode = OITM.ItemCode collate Thai_CI_AS
-    where fda_item.ItemCode IS NOT NULL AND fda_item.ItemCode = '".$_GET['item']."' or  fda_item.ItemCode IS NOT NULL AND fda_item.FDA_NO = '".$_GET['item']."' or  fda_item.ItemCode IS NOT NULL AND fda_item.FDA_DOCNO = '".$_GET['item']."'
+    where fda_item.ItemCode IS NOT NULL AND fda_item.ItemCode LIKE '%".$_GET['item']."%' or  fda_item.ItemCode IS NOT NULL AND fda_item.FDA_NO LIKE '%".$_GET['item']."%' or  fda_item.ItemCode IS NOT NULL AND fda_item.FDA_DOCNO LIKE '%".$_GET['item']."%'
     ";
 
     $stmt = $conn->query( $query );
@@ -187,7 +183,7 @@ elseif (!empty($_GET)) {
     $query11 = "SELECT count(fda_item.id_num) AS sum_fda
     FROM [it_project].[dbo].[fda_item] 
     LEFT JOIN [sap_smd].[dbo].[OITM] ON fda_item.ItemCode = OITM.ItemCode collate Thai_CI_AS
-    where fda_item.ItemCode IS NOT NULL AND fda_item.ItemCode = '".$_GET['item']."' or  fda_item.ItemCode IS NOT NULL AND fda_item.FDA_NO = '".$_GET['item']."' or  fda_item.ItemCode IS NOT NULL AND fda_item.FDA_DOCNO = '".$_GET['item']."'
+    where fda_item.ItemCode IS NOT NULL AND fda_item.ItemCode LIKE '%".$_GET['item']."%' or  fda_item.ItemCode IS NOT NULL AND fda_item.FDA_NO LIKE '%".$_GET['item']."%' or  fda_item.ItemCode IS NOT NULL AND fda_item.FDA_DOCNO LIKE '%".$_GET['item']."%'
     ";
     $stmt11 = $conn->query( $query11 );
 
@@ -210,7 +206,6 @@ elseif (!empty($_GET)) {
     <th>รุ่น</th>
     <th>สถานะอย.</th>
     <th>เลขที่ใบจดแจ้งรายการละเอียด / ใบอนุญาต</th>
-    <th>เลขเอกสาร</th>
     <th>วัน/เดือน/ปี หมดอายุ</th>
     <th>หมดอายุในอีก</th>
     </tr>
@@ -226,7 +221,6 @@ elseif (!empty($_GET)) {
           default : echo "<td style= width:4%;> มี </td>";
       }
       echo "<td style= width:11%;>". $row['FDA_NO'] ."</td>";
-      echo "<td style= width:11%;>". $row['FDA_DOCNO'] ."</td>";
       echo "<td style= width:9%;>". date("d-m-Y", strtotime($row['FDA_EXPIRED'])) ."</td>";
 
 
@@ -257,14 +251,14 @@ elseif (!empty($_GET)) {
   $query2 = "SELECT fda_item.*, OITM.ItemName, OITM.U_brand
   FROM [it_project].[dbo].[fda_item] 
   LEFT JOIN [sap_smd].[dbo].[OITM] ON fda_item.ItemCode = OITM.ItemCode collate Thai_CI_AS
-  where fda_item.ItemCode IS NULL AND fda_item.ItemCode = '".$_GET['item']."' or  fda_item.ItemCode IS NULL AND fda_item.FDA_NO = '".$_GET['item']."'  or  fda_item.ItemCode IS NULL AND fda_item.FDA_DOCNO = '".$_GET['item']."'
+  where fda_item.ItemCode IS NULL AND fda_item.ItemCode LIKE '%".$_GET['item']."%' or  fda_item.ItemCode IS NULL AND fda_item.FDA_NO LIKE '%".$_GET['item']."%'  or  fda_item.ItemCode IS NULL AND fda_item.FDA_DOCNO LIKE '%".$_GET['item']."%'
   ";
   $stmt2 = $conn->query( $query2 );
 
   $query12 = "SELECT count(fda_item.id_num) AS sum_fda
   FROM [it_project].[dbo].[fda_item] 
   LEFT JOIN [sap_smd].[dbo].[OITM] ON fda_item.ItemCode = OITM.ItemCode collate Thai_CI_AS
-  where fda_item.ItemCode IS NULL AND fda_item.ItemCode = '".$_GET['item']."' or  fda_item.ItemCode IS NULL AND fda_item.FDA_NO = '".$_GET['item']."'  or  fda_item.ItemCode IS NULL AND fda_item.FDA_DOCNO = '".$_GET['item']."'
+  where fda_item.ItemCode IS NULL AND fda_item.ItemCode LIKE '%".$_GET['item']."%' or  fda_item.ItemCode IS NULL AND fda_item.FDA_NO LIKE '%".$_GET['item']."%'  or  fda_item.ItemCode IS NULL AND fda_item.FDA_DOCNO LIKE '%".$_GET['item']."%'
   ";
   $stmt12 = $conn->query( $query12 );
 
@@ -286,7 +280,6 @@ echo "
 <th>รุ่น</th>
 <th>สถานะอย.</th>
 <th>เลขที่ใบจดแจ้งรายการละเอียด / ใบอนุญาต</th>
-<th>เลขเอกสาร</th>
 <th>วัน/เดือน/ปี หมดอายุ</th>
 <th>หมดอายุในอีก</th>
 </tr>
@@ -301,7 +294,6 @@ while ($row2 = $stmt2->fetch(PDO::FETCH_ASSOC)){
       default : echo "<td style= width:4%;> มี </td>";
   }
   echo "<td style= width:12%;>". $row2['FDA_NO'] ."</td>";
-  echo "<td style= width:9%;>". $row2['FDA_DOCNO'] ."</td>";
   echo "<td style= width:7%;>". date("d-m-Y", strtotime($row2['FDA_EXPIRED'])) ."</td>";
   $date1= date_create("$date");
   $date2= date_create(" ".$row2['FDA_EXPIRED']." ");
