@@ -253,7 +253,7 @@ if(!isset($_SESSION["user"]) ){
         echo "<h2 id='name-p'> ชื่องบ : <input type='text' id='itemname2'  name='item8' value ='". iconv('TIS-620', 'UTF-8',$row2['name_p']) ."'> </h2>
         <p> Status REQ. : ". iconv('TIS-620', 'UTF-8',$row2['sinfo']) ." </p>
         <p> สถานที่ส่งมอบ : <input type='text' id='itemname2' name='item9' value ='". iconv('TIS-620', 'UTF-8',$row2['location']) ."'></p>
-        <p> วันที่ส่งมอบ :  ". date("d-m-Y", strtotime($row2['trans_date'])) ." <input type='date' id='itemname3' name='item10' placeholder='dd-mm-yyyy' value ='' > </p>
+        <p> วันที่ส่งมอบ :  ". date("d-m-Y", strtotime($row2['trans_date'])) ." <br> <input type='date' id='itemname3' name='item10' placeholder='dd-mm-yyyy' value ='' > </p>
         ";
 
         echo "  <input class='btn_name-p' type='submit' value='บันทึก'>";

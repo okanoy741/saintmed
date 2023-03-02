@@ -74,6 +74,14 @@ table {
 	color:#FFFFFF;
 	background-color: red;
 }
+.red2 a{ 
+	color:#000000;
+	text-align: center;
+}
+.red2 img {
+	width: 50%;
+	height: 50%;
+}
 .form1 {
 	display:inline;
 	width:45%;
@@ -86,6 +94,11 @@ table {
 }
 #serchBox{
 	width: 50%;
+	background-color: #f0efef;
+	margin: 0 20%;
+}
+#insertBox{
+	width: 70%;
 	background-color: #f0efef;
 	margin: 0 20%;
 }
@@ -404,6 +417,12 @@ tbody{
 	max-inline-size: 90rem;
 	margin: -10% auto -10% auto;
 }
+.grid4 {
+	inline-size: 90%;
+	margin-inline: auto;
+	max-inline-size: 90rem;
+	margin: -30% auto -10% auto;
+}
 .grid1{
 	inline-size: 100%;
 	margin-inline: center;
@@ -686,6 +705,20 @@ tbody{
 	border-radius: 0.5rem;
 	padding: 1%;
 	clear: both;
+}
+.grid4 .btn_submit2{
+	width: 80%;
+	margin: 0 10%;
+}
+.grid4 a .btn_cancel{
+	width: 80%;
+	margin: 0 10%;
+	text-align: center;
+	font-weight: 700;
+	background-color: #f00000;
+	padding: 0.7rem;
+	border-radius: 0.5rem;
+	color: #FFFFFF;
 }
 
 

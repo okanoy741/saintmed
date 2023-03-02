@@ -135,7 +135,7 @@ include "head.php";
     </tr>
     ";
     while ($row2 = $stmt2->fetch(PDO::FETCH_ASSOC)){
-        echo "<td style= width:5%;> <a href='update_item.php?item=".$row2['FDA_DOCNO']."'>Update </td>";
+        echo "<td style= width:5%;> <a href='update_item.php?item=".$row2['id_num']."'>Update </td>";
         echo "<td style= width:9%;>". $row2['FDA_CAT_NO'] ."</td>";
         echo "<td style= width:20%;>". $row2['FDA_ITEMNAME'] ."</td>";
         
@@ -296,7 +296,7 @@ echo "
 </tr>
 ";
 while ($row2 = $stmt2->fetch(PDO::FETCH_ASSOC)){
-    echo "<td style= width:5%;> <a href='update_item.php?item=".$row2['FDA_DOCNO']."'>Update </td>";
+    echo "<td style= width:5%;> <a href='update_item.php?item=".$row2['id_num']."'>Update </td>";
     echo "<td style= width:9%;>". $row2['FDA_CAT_NO'] ."</td>";
     echo "<td style= width:20%;>". $row2['FDA_ITEMNAME'] ."</td>";
 
