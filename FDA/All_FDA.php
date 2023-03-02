@@ -1,14 +1,18 @@
 <?php
 include "head.php";
 ?>
+<br>
 <div class="grid3">
     <p id ="headr2">ข้อมูลการจับคู่เลขที่สินค้ากับเลขที่ อย.</p>
+    <a href="../FDA/update_set_item.php?"><div class="btn_update">  เพิ่ม / update ใบอนุญาต (ทั้งชุด) </div></a>
     <form name="search" action='../FDA/search.php?' method="POST">
         <br><br>
         <input name="search" type="text" id="serchBox" placeholder="--- Search (SAPcode / ใบอนุญาต) ---"> <br><br>
         <a href='../FDA/All_FDA.php'><div id="serchBox2"> clear filter</div></a> <br>
     </form>
+    <br><br>
 </div>
+<br>
 <div class="grid3">
     <?php
     $date = date("Y/m/d");
@@ -42,6 +46,7 @@ include "head.php";
         echo "
         <table class='table_h6' >
         <tr>
+        <th></th>
         <th>รหัสสินค้าใน SAP</th>
         <th>รายละเอียดสินค้า</th>
         <th>ยี่ห้อ</th>
@@ -53,6 +58,7 @@ include "head.php";
         </tr>
         ";
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)){
+            echo "<td style= width:3%; > <a class = 'red3' href='update_item.php?item=".$row['id_num']."'> Update </a></td>";
             echo "<td style= width:11%;>". $row['ItemCode'] ."</td>";
             echo "<td style= width:11%;>". $row['ItemName'] ."</td>";
             echo "<td style= width:5%;>". $row['u_brand'] ."</td>";
@@ -85,8 +91,8 @@ include "head.php";
             break;
             case ($diff3 < 90) : echo "<td class = 'red' style= width:9%;>".$diff2." วัน"."</td>";
             break;
-
         }
+        
 
         echo "</tr>";
 
@@ -135,7 +141,7 @@ include "head.php";
     </tr>
     ";
     while ($row2 = $stmt2->fetch(PDO::FETCH_ASSOC)){
-        echo "<td style= width:5%;> <a href='update_item.php?item=".$row2['id_num']."'>Update </td>";
+        echo "<td style= width:3%;> <a href='update_item.php?item=".$row2['id_num']."'>Update </td>";
         echo "<td style= width:9%;>". $row2['FDA_CAT_NO'] ."</td>";
         echo "<td style= width:20%;>". $row2['FDA_ITEMNAME'] ."</td>";
         
@@ -207,6 +213,7 @@ elseif (!empty($_GET)) {
     echo "
     <table class='table_h6' >
     <tr>
+    <th></th>
     <th>รหัสสินค้าใน SAP</th>
     <th>รายละเอียดสินค้า</th>
     <th>ยี่ห้อ</th>
@@ -218,6 +225,7 @@ elseif (!empty($_GET)) {
     </tr>
     ";
     while ($row = $stmt->fetch(PDO::FETCH_ASSOC)){
+        echo "<td style= width:3%; > <a class = 'red3' href='update_item.php?item=".$row['id_num']."'> Update </a></td>";
         echo "<td style= width:11%;>". $row['ItemCode'] ."</td>";
         echo "<td style= width:11%;>". $row['ItemName'] ."</td>";
         echo "<td style= width:5%;>". $row['u_brand'] ."</td>";
@@ -296,7 +304,7 @@ echo "
 </tr>
 ";
 while ($row2 = $stmt2->fetch(PDO::FETCH_ASSOC)){
-    echo "<td style= width:5%;> <a href='update_item.php?item=".$row2['id_num']."'>Update </td>";
+    echo "<td style= width:3%;> <a href='update_item.php?item=".$row2['id_num']."'>Update </td>";
     echo "<td style= width:9%;>". $row2['FDA_CAT_NO'] ."</td>";
     echo "<td style= width:20%;>". $row2['FDA_ITEMNAME'] ."</td>";
 
