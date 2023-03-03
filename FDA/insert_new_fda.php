@@ -18,5 +18,6 @@ while($i < $_POST['item1'.$i.'']  ){
    $i++;
 };
 
+//echo "$item4";
 header("Refresh:0; url=../FDA/All_FDA.php");
 ?>

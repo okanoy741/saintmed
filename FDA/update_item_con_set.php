@@ -10,12 +10,22 @@ while($i < $_POST['item0'.$i.'']  ){
    $item2 = $_POST['item2'.$i.''];
    $item3 = $_POST['item3'.$i.''];
 
-   $query2 = "UPDATE fda_item SET ItemCode = '$item1', FDA_NO = '$item2', FDA_EXPIRED = '$item3' 
-   WHERE id_num = $item0
-   ";
-   $stmt2 = $conn->query( $query2 );
+   if (empty($item1)) {
+   // code...
+      $query2 = "UPDATE fda_item SET FDA_NO = '$item2', FDA_EXPIRED = '$item3' 
+      WHERE id_num = $item0
+      ";
+      $stmt2 = $conn->query( $query2 );
+      $i++;
+   }
+   elseif(!empty($item1)) {
+      $query2 = "UPDATE fda_item SET ItemCode = '$item1', FDA_NO = '$item2', FDA_EXPIRED = '$item3' 
+      WHERE id_num = $item0
+      ";
+      $stmt2 = $conn->query( $query2 );
 
-   $i++;
+      $i++;
+   }
 };
 //echo "$item0 $item1 $item2 $item3 ";
 

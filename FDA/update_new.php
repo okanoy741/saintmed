@@ -47,7 +47,7 @@ include "head.php";
         '<div class="input-group-prepend">' +
         '<button class="btn btn-danger" id="DeleteRow" type="button">' +
         '<i class="bi bi-trash"></i> Delete</button> </div>' +
-        '<input type="text"  class="form-control m-input" name="item1'+i+'" placeholder="----- เลขที่ใบอณุญาต ------"> &nbsp;&nbsp; <input type="text" class="form-control m-input2" name="item2'+i+'" placeholder="----- รายละเอียดสินค้า ------"> &nbsp;&nbsp; <input type="text" class="form-control m-input3" name="item3'+i+'" placeholder="----- รุ่น ------"> &nbsp;&nbsp; <input type="date" class="form-control m-input4" name="item4'+i+'"> </div> </div>';
+        '<input type="text"  class="form-control m-input" name="item1'+i+'" placeholder="----- เลขที่ใบอณุญาต ------" required> &nbsp;&nbsp; <input type="text" class="form-control m-input2" name="item2'+i+'" placeholder="----- รายละเอียดสินค้า ------" required> &nbsp;&nbsp; <input type="text" class="form-control m-input3" name="item3'+i+'" placeholder="----- รุ่น ------" required> &nbsp;&nbsp; <input type="date" class="form-control m-input4" name="item4'+i+'" required> </div> </div>';
 
         $('#newinput').append(newRowAdd);
         $('#newinput').insertBefore(html);

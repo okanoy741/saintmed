@@ -47,8 +47,8 @@ include "head.php";
           break;
           default : echo "<td style= width:4%;> มี </td>";
       }
-      echo "<td style= width:10%;> <input name='item2' type='text' id='insertBox' value=' ".$row2['FDA_NO']." ' ></td>";
-      echo "<td style= width:7%;> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ". date("d-m-Y", strtotime($row2['FDA_EXPIRED'])) ." <br> <input name='item3' type='date' id='insertBox' value ='' > </td>";
+      echo "<td style= width:10%;> <input name='item2' type='text' id='insertBox' value=' ".$row2['FDA_NO']."' required></td>";
+      echo "<td style= width:7%;> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ". date("d-m-Y", strtotime($row2['FDA_EXPIRED'])) ." <br> <input name='item3' type='date' id='insertBox' value ='' required > </td>";
 
       $date1= date_create("$date");
       $date2= date_create(" ".$row2['FDA_EXPIRED']." ");

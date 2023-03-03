@@ -47,7 +47,7 @@ include "head.php";
       while ($row2 = $stmt2->fetch(PDO::FETCH_ASSOC)){
         echo "<form action='../FDA/update_item_con_set.php?' method='POST'  id='subform' >";
         echo "<td style= width:3%;> <input name='item0$i' type='text' id='insertBox' value ='".$row2['id_num']."' ></td>";
-        echo "<td style= width:10%;> <input name='item1$i' type='text' id='insertBox' value ='".$row2['ItemCode']."' required></td>";
+        echo "<td style= width:10%;> <input name='item1$i' type='text' id='insertBox' value ='".$row2['ItemCode']."' ></td>";
         echo "<td style= width:9%;>". $row2['FDA_CAT_NO'] ."</td>";
         echo "<td style= width:15%;>". $row2['FDA_ITEMNAME'] ."</td>";
         switch ($row2['FDA_NO']) {
