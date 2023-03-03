@@ -1,0 +1,5 @@
+{
+    "require": {
+        "hl7-utils/hl7-utils": "^2.0"
+    }
+}

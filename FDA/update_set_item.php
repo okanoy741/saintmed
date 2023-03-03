@@ -6,6 +6,7 @@ include "head.php";
 </div>
 <div class="grid4">
     <?php
+    $i = 0 ;
     $date = date("Y/m/d");
     require_once "../FDA/connect.php";  // Using database connection file here
     if (empty($_GET)) {
@@ -44,9 +45,9 @@ include "head.php";
       </tr>
       ";
       while ($row2 = $stmt2->fetch(PDO::FETCH_ASSOC)){
-        echo "<form action='../FDA/update_item_con_set.php?' method='POST' id='subform' >";
-        echo "<td style= width:3%;> <input name='item0' type='text' id='insertBox' value ='".$row2['id_num']."' ></td>";
-        echo "<td style= width:10%;> <input name='item1' type='text' id='insertBox' value ='".$row2['ItemCode']."' required></td>";
+        echo "<form action='../FDA/update_item_con_set.php?' method='POST'  id='subform' >";
+        echo "<td style= width:3%;> <input name='item0$i' type='text' id='insertBox' value ='".$row2['id_num']."' ></td>";
+        echo "<td style= width:10%;> <input name='item1$i' type='text' id='insertBox' value ='".$row2['ItemCode']."' required></td>";
         echo "<td style= width:9%;>". $row2['FDA_CAT_NO'] ."</td>";
         echo "<td style= width:15%;>". $row2['FDA_ITEMNAME'] ."</td>";
         switch ($row2['FDA_NO']) {
@@ -54,8 +55,8 @@ include "head.php";
           break;
           default : echo "<td style= width:4%;> มี </td>";
       }
-      echo "<td style= width:10%;> <input name='item2' type='text' id='insertBox' value ='".$row2['FDA_NO']."' required></td>";
-      echo "<td style= width:7%;> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ". date("d-m-Y", strtotime($row2['FDA_EXPIRED'])) ." <br> <input name='item3' type='date' id='insertBox' value ='' required> </td>";
+      echo "<td style= width:10%;> <input name='item2$i' type='text' id='insertBox' value ='".$row2['FDA_NO']."' required></td>";
+      echo "<td style= width:7%;> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ". date("d-m-Y", strtotime($row2['FDA_EXPIRED'])) ." <br> <input name='item3$i' type='date' id='insertBox' value ='' required> </td>";
 
       $date1= date_create("$date");
       $date2= date_create(" ".$row2['FDA_EXPIRED']." ");
@@ -71,8 +72,9 @@ include "head.php";
           case ($diff3 < 90) : echo "<td class = 'red' style= width:7%;>".$diff2." วัน"."</td>";
           break;
       }
-      echo "<td class = 'red2' style= width:3%;><a href='../FDA/del_item_con.php?item=".$row2['id_num']."' onclick=\"return confirm('ต้องการ ลบ ข้อมูลหรือไม่?')\"> <img src=\"../img/delete.png\" /' ></a></td>";
+      echo "<td class = 'red2' style= width:3%;><a href='../FDA/del_item_con2.php?item=".$row2['id_num']."&fda=".$row2['FDA_NO']."' onclick=\"return confirm('ต้องการ ลบ ข้อมูลหรือไม่?')\"> <img src=\"../img/delete.png\" /' ></a></td>";
       echo "</tr>";
+      $i++;
   } 
 
   echo "</table></p>";
