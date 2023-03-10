@@ -15,7 +15,7 @@ include "head.php";
          <div id="serchBoxLess6"> <a href='../fda/age_fda.php?age=3'>อย.ไม่ถึง 6 เดือน</a></div>
          <div id="serchBoxMore6"> <a href='../fda/age_fda.php?age=4'>อย.เกิน 6 เดือน</a></div>
      </center>
-     <br><br>
+     <br><br><br><br>
  </div>
  <br>
  <div class="grid3">
@@ -52,7 +52,7 @@ include "head.php";
         <th>รายละเอียดสินค้า</th>
         <th>ยี่ห้อ</th>
         
-        
+
         <th>เลขที่ใบจดแจ้งรายการละเอียด / ใบอนุญาต</th>
         <th>วัน/เดือน/ปี หมดอายุ</th>
         <th>หมดอายุในอีก</th>
@@ -73,7 +73,7 @@ include "head.php";
             $diff3 = $row['days_expired'];
 
             //echo "<td style= width:11%;>".$row['expiration_status'] ."</td>";
-            
+
             echo "<td style= width:11%;>". $row['FDA_NO'] ."</td>";
             echo "<td style= width:9%;>".date("d-m-Y", strtotime($row['FDA_EXPIRED'])) ."</td>";
             switch ($diff3) {
@@ -87,7 +87,7 @@ include "head.php";
                 break;
             }
             echo "<br>--(".$row['expiration_status'].")--</td>";
-            
+
 
             echo "</tr>";
 
@@ -129,7 +129,7 @@ include "head.php";
         <th>รหัสสินค้าใน SAP</th>
         <th>รายละเอียดสินค้า</th>
         <th>รุ่น</th>
-        
+
         <th>เลขที่ใบจดแจ้งรายการละเอียด / ใบอนุญาต</th>
         <th>วัน/เดือน/ปี หมดอายุ</th>
         <th>หมดอายุในอีก</th>
@@ -139,7 +139,7 @@ include "head.php";
             echo "<td style= width:3%;> <a href='update_item.php?item=".$row2['id_num']."'>Update </td>";
             echo "<td style= width:9%;>". $row2['FDA_CAT_NO'] ."</td>";
             echo "<td style= width:20%;>". $row2['FDA_ITEMNAME'] ."</td>";
-            
+
         //$date1= date_create("$date");
        // $date2= date_create(" ".$row2['FDA_EXPIRED']." ");
         //$diff= date_diff($date1,$date2);
@@ -215,8 +215,8 @@ elseif (!empty($_GET)) {
     <th>รหัสสินค้าใน SAP</th>
     <th>รายละเอียดสินค้า</th>
     <th>ยี่ห้อ</th>
-    
-    
+
+
     <th>เลขที่ใบจดแจ้งรายการละเอียด / ใบอนุญาต</th>
     <th>วัน/เดือน/ปี หมดอายุ</th>
     <th>หมดอายุในอีก</th>
@@ -237,7 +237,7 @@ elseif (!empty($_GET)) {
         $diff3 = $row['days_expired'];
 
             //echo "<td style= width:11%;>".$row['expiration_status'] ."</td>";
-        
+
         echo "<td style= width:11%;>". $row['FDA_NO'] ."</td>";
         echo "<td style= width:9%;>".date("d-m-Y", strtotime($row['FDA_EXPIRED'])) ."</td>";
         switch ($diff3) {
@@ -293,7 +293,7 @@ elseif (!empty($_GET)) {
             <th>รหัสสินค้าใน SAP</th>
             <th>รายละเอียดสินค้า</th>
             <th>รุ่น</th>
-            
+
             <th>เลขที่ใบจดแจ้งรายการละเอียด / ใบอนุญาต</th>
             <th>วัน/เดือน/ปี หมดอายุ</th>
             <th>หมดอายุในอีก</th>
@@ -303,7 +303,7 @@ elseif (!empty($_GET)) {
                 echo "<td style= width:3%;> <a href='update_item.php?item=".$row2['id_num']."'>Update </td>";
                 echo "<td style= width:9%;>". $row2['FDA_CAT_NO'] ."</td>";
                 echo "<td style= width:20%;>". $row2['FDA_ITEMNAME'] ."</td>";
-                
+
         //$date1= date_create("$date");
        // $date2= date_create(" ".$row2['FDA_EXPIRED']." ");
         //$diff= date_diff($date1,$date2);
