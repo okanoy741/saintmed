@@ -26,6 +26,88 @@ select{
 	width: 100%;	
 }
 
+.red4{
+	width: 80%;
+	background-color: #094cb5;
+	padding: 10%;
+	text-decoration: none;
+}
+.red4 a : hover{text-decoration: none;}
+.red4 : hover{text-decoration: none;}
+
+#serchBoxNO,#serchBoxLess3,#serchBoxLess6,#serchBoxMore6{
+	display: inline-block;
+	padding: 0.5rem 0.03rem;
+
+}
+#serchBoxNO,
+#serchBoxNO a{
+ width: 8%;
+ 
+ background-color: #585454;
+ text-align: center;
+ color: #FFFFFF;
+ border-radius: 0.5rem;
+ text-decoration: none;
+}
+#serchBoxNO:hover,
+#serchBoxNO:hover a{
+ transition: 0.5s;
+ background-color: #000000;
+ text-decoration: none;
+}
+
+#serchBoxLess3,
+#serchBoxLess3 a{
+ width: 8%;
+ 
+ background-color: #FF2F2F;
+ text-align: center;
+ color: #FFFFFF;
+ border-radius: 0.5rem;
+ text-decoration: none;
+}
+#serchBoxLess3:hover,
+#serchBoxLess3:hover a{
+ transition: 0.5s;
+ background-color: #582424;
+ text-decoration: none;
+}
+
+#serchBoxLess6,
+#serchBoxLess6 a{
+ width: 8%;
+ 
+ background-color: #FFC900;
+ text-align: center;
+ color: #FFFFFF;
+ border-radius: 0.5rem;
+ text-decoration: none;
+}
+#serchBoxLess6:hover,
+#serchBoxLess6:hover a{
+ transition: 0.5s;
+ background-color: #6E5700;
+ text-decoration: none;
+}
+
+#serchBoxMore6,
+#serchBoxMore6 a{
+ width: 8%;
+ 
+ background-color: #3ECA30;
+ text-align: center;
+ color: #FFFFFF;
+ border-radius: 0.5rem;
+ text-decoration: none;
+}
+#serchBoxMore6:hover,
+#serchBoxMore6:hover a{
+ transition: 0.5s;
+ background-color: #2C6626;
+ text-decoration: none;
+}
+
 option{
 	border-color: #d5e8ff;
 	border-radius: 0.5rem;
@@ -105,10 +187,10 @@ table {
 }
 #serchBox2,
 #serchBox2 a{
-	width: 15%;
+	width: 8%;
+	padding: 0.5rem 0;
+	
 	background-color: #094cb5;
-	margin: 0 40%;
-	padding: 0.5%;
 	text-align: center;
 	color: #FFFFFF;
 	border-radius: 0.5rem;
