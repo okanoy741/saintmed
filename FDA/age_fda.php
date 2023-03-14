@@ -1,5 +1,6 @@
 <?php
 include "head.php";
+include "encode.php";
 
 ?>
 <br><br><br><br><br><br><br><br><br><br><br>
@@ -10,19 +11,25 @@ include "head.php";
         <br><br>
         <input name="search" type="text" id="serchBox" placeholder="--- Search (SAPcode / ใบอนุญาต) ---"> <br><br>
         <center><div id="serchBox2"> <a href='../fda/all_fda.php'>กลับไปหน้าหลัก</a></div></center> <br>
-		    <center>
-         <div id="serchBoxNO"> <a href='../fda/age_fda.php?age=1'>อย.หมดอายุ</a></div>  
-         <div id="serchBoxLess3"> <a href='../fda/age_fda.php?age=2'>อย.ไม่ถึง 3 เดือน</a></div>
-         <div id="serchBoxLess6"> <a href='../fda/age_fda.php?age=3'>อย.ไม่ถึง 6 เดือน</a></div>
-         <div id="serchBoxMore6"> <a href='../fda/age_fda.php?age=4'>อย.เกิน 6 เดือน</a></div>
-     </center>
+		<?php
+			$age1 = encrypted_url("1");
+			$age2 = encrypted_url("2");
+			$age3 = encrypted_url("3");
+			$age4 = encrypted_url("4");
+			echo "<center>
+         <div id=serchBoxNO> <a href='../fda/age_fda.php?age=".$age1."'>อย.หมดอายุ</a></div>  
+         <div id=serchBoxLess3> <a href='../fda/age_fda.php?age=".$age2."'>อย.ไม่ถึง 3 เดือน</a></div>
+         <div id=serchBoxLess6> <a href='../fda/age_fda.php?age=".$age3."'>อย.ไม่ถึง 6 เดือน</a></div>
+         <div id=serchBoxMore6> <a href='../fda/age_fda.php?age=".$age4."'>อย.เกิน 6 เดือน</a></div>
+     </center>";
+		?>
     </form>
     <br><br><br><br><br>
 </div>
 <br>
 <div >
     <?php
-    $agestart = $_GET['age'];
+    $agestart = decrypted_url($_GET['age']);
     if ($agestart == "1")
        $age_fda = "สินค้าเลิกผลิต";
    elseif ($agestart =="2")
@@ -47,9 +54,9 @@ include "head.php";
         $stmt11 = $conn->query( $query11 );
         
 
-        echo "<center><h4>ALL ITEM &nbsp;"; 
+        echo "<br><center><h4>สถานะรายการ  &nbsp;".$age_fda."&nbsp;"; 
         while ($row11 = $stmt11->fetch(PDO::FETCH_ASSOC)){ 
-            echo  "(".$row11['sum_fda'].") </h4></center>" ;
+            echo  "(".$row11['sum_fda']." รายการ) </h4></center>" ;
         }
 
         echo "

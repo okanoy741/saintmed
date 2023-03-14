@@ -1,25 +1,57 @@
 <?php
 include "head.php";
+include "encode.php";
+
 ?>
 <br>
 <div class="grid3">
     <p id ="headr2">ข้อมูลการจับคู่เลขที่สินค้ากับเลขที่ อย.</p>
-    <a href="../FDA/update_set_item.php?"><div class="btn_update">  เพิ่ม / update ใบอนุญาต (ทั้งชุด) </div></a>
+    <a href="../FDA/update_set_item.php?"><div class="btn_update">  เพิ่ม / update ใบอนุญาต (ทั้งชุด) </div> </a>
+	
+	<?php  
+	/*  if ($deage=="")
+		$deage="NULL"; 
+	$endc = urlencode(encrypted_url($_GET['item']));
+	$dec=decrypted_url($endc);
+	//$dec = str_replace(' ', '+', $dec1);
+    $query2 = "SELECT *
+    FROM ALL_FDA_VIEW 
+    where ItemCode IS NULL AND (ItemCode LIKE '%".$_GET['item']."%' or  FDA_NO LIKE '%".$dec."%'  or FDA_DOCNO LIKE '%".$_GET['item']."%') 
+        ORDER BY FDA_EXPIRED ASC
+        ";
+		
+		echo $query2;*/
+	 
+
+	 
+	 
+	 
+	 ?>
+	
     <form name="search" action='../FDA/search.php?' method="POST">
         <br><br>
         <input name="search" type="text" id="serchBox" placeholder="--- Search (SAPcode / ใบอนุญาต) ---"> <br><br>
         <center><div id="serchBox2"> <a href='../fda/all_fda.php'>ล้างค่า</a></div>  </center> <br>
-        <center>
-         <div id="serchBoxNO"> <a href='../fda/age_fda.php?age=1'>อย.หมดอายุ</a></div>  
-         <div id="serchBoxLess3"> <a href='../fda/age_fda.php?age=2'>อย.ไม่ถึง 3 เดือน</a></div>
-         <div id="serchBoxLess6"> <a href='../fda/age_fda.php?age=3'>อย.ไม่ถึง 6 เดือน</a></div>
-         <div id="serchBoxMore6"> <a href='../fda/age_fda.php?age=4'>อย.เกิน 6 เดือน</a></div>
-     </center>
+		<?php
+			$age1 = encrypted_url("1");
+			$age2 = encrypted_url("2");
+			$age3 = encrypted_url("3");
+			$age4 = encrypted_url("4");
+			echo "<center>
+         <div id=serchBoxNO> <a href='../fda/age_fda.php?age=".$age1."'>อย.หมดอายุ</a></div>  
+         <div id=serchBoxLess3> <a href='../fda/age_fda.php?age=".$age2."'>อย.ไม่ถึง 3 เดือน</a></div>
+         <div id=serchBoxLess6> <a href='../fda/age_fda.php?age=".$age3."'>อย.ไม่ถึง 6 เดือน</a></div>
+         <div id=serchBoxMore6> <a href='../fda/age_fda.php?age=".$age4."'>อย.เกิน 6 เดือน</a></div>
+     </center>";
+	
+		?>
+        
      <br><br><br><br>
  </div>
  <br>
  <div class="grid3">
     <?php
+	
     $date = date("Y/m/d");
     echo $date ;
     require_once "../FDA/connect.php";  // Using database connection file here
@@ -74,7 +106,7 @@ include "head.php";
 
             //echo "<td style= width:11%;>".$row['expiration_status'] ."</td>";
 
-            echo "<td style= width:11%;>". $row['FDA_NO'] ."</td>";
+            echo "<td style= width:11%;> <a href='All_FDA.php?item=".urlencode(encrypted_url($row['FDA_NO']))."'>". $row['FDA_NO'] ."</a></td>";
             echo "<td style= width:9%;>".date("d-m-Y", strtotime($row['FDA_EXPIRED'])) ."</td>";
             switch ($diff3) {
                 case ($diff3 <= 0) : echo "<td class = 'red' style= width:9%;> หมดอายุ ";
@@ -154,7 +186,7 @@ include "head.php";
       } */
 
 //echo "<td style= width:11%;>". ."</td>";
-      echo "<td style= width:12%;>". $row2['FDA_NO'] ."</td>";
+      echo "<td style= width:11%;> <a href='All_FDA.php?item=".urlencode(encrypted_url($row2['FDA_NO']))."'>". $row2['FDA_NO'] ."</a></td>";
       echo "<td style= width:7%;>". date("d-m-Y", strtotime($row2['FDA_EXPIRED'])) ."</td>";
       
       switch ($diff3) {
@@ -184,9 +216,10 @@ echo "</ul>";
 
 /*-------use fileter name---------*/
 elseif (!empty($_GET)) {
+	$dec=decrypted_url($_GET['item']);
     $query = "SELECT *
     FROM OITM_FDA_VIEW
-    where ItemCode LIKE '%".$_GET['item']."%' or  FDA_NO LIKE '%".$_GET['item']."%' 
+    where ItemCode LIKE '%".$dec."%' or  FDA_NO LIKE '%".$dec."%' 
     ORDER BY FDA_EXPIRED ASC
     ";
 
@@ -194,10 +227,12 @@ elseif (!empty($_GET)) {
 
     $query11 = "SELECT count(*) AS sum_fda
     FROM OITM_FDA_VIEW 
-    where ItemCode LIKE '%".$_GET['item']."%' or  FDA_NO LIKE '%".$_GET['item']."%' 
+    where ItemCode LIKE '%".$dec."%' or  FDA_NO LIKE '%".$dec."%' 
     ";
     $stmt11 = $conn->query( $query11 );
-
+    /////////////
+	
+	////////////
     echo "<ul id='nav'>";
     echo "<li><a href='#'>สินค้าใน SAP ได้รับ ITEM CODE แล้ว "; 
     while ($row11 = $stmt11->fetch(PDO::FETCH_ASSOC)){ 
@@ -264,16 +299,17 @@ elseif (!empty($_GET)) {
     ";
 
     /*-------รายการได้รับเลขแล้ว---------*/
+	$dec=decrypted_url($_GET['item']);
     $query2 = "SELECT *
     FROM ALL_FDA_VIEW 
-    where ItemCode IS NULL AND (ItemCode LIKE '%".$_GET['item']."%' or  FDA_NO LIKE '%".$_GET['item']."%'  or FDA_DOCNO LIKE '%".$_GET['item']."%') 
+    where ItemCode IS NULL AND (ItemCode LIKE '%".$dec."%' or  FDA_NO LIKE '%".$dec."%'  or FDA_DOCNO LIKE '%".$dec."%') 
         ORDER BY FDA_EXPIRED ASC
         ";
         $stmt2 = $conn->query( $query2 );
 
         $query12 = "SELECT count(*) AS sum_fda
         FROM ALL_FDA_VIEW
-        where ItemCode IS NULL AND (ItemCode LIKE '%".$_GET['item']."%' or  FDA_NO LIKE '%".$_GET['item']."%'  or FDA_DOCNO LIKE '%".$_GET['item']."%')
+        where ItemCode IS NULL AND (ItemCode LIKE '%".$dec."%' or  FDA_NO LIKE '%".$dec."%'  or FDA_DOCNO LIKE '%".$dec."%')
             ";
             $stmt12 = $conn->query( $query12 );
 
