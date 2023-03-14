@@ -19,7 +19,7 @@
 try {
 		include "connect.php";  // Using database connection file here
 		
-		$query = "SELECT * FROM LOAN"
+		$query = "SELECT * FROM LOAN2"
 		;
 		$result = $conn2->query( $query ); // First parameter is just return of "mysqli_connect()" function
 		echo "<br><br><br><br>";

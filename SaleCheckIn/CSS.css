@@ -35,6 +35,9 @@ select{
 .red4 a : hover{text-decoration: none;}
 .red4 : hover{text-decoration: none;}
 
+
+
+
 #serchBox5,#serchBox6,#serchBox7,#serchBox8{
 	width: 23%;
 	display: inline-block;
@@ -1621,3 +1624,20 @@ ul#nav {
 
 
 }
+
+<style>
+a.one:link, a.one:visited {
+  background-color: white;
+  color: black;
+  border: 2px solid #a71953;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+}
+
+a.one:hover, a.one:active {
+  background-color: #a71953;
+  color: white;
+}
+</style>

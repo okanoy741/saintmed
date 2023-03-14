@@ -105,7 +105,7 @@ include "encode.php";
 
             //echo "<td style= width:11%;>".$row['expiration_status'] ."</td>";
 
-            echo "<td style= width:11%;> <a href='All_FDA.php?item=".urlencode(encrypted_url($row['FDA_NO']))."'>". $row['FDA_NO'] ."</a></td>";
+            echo "<td style= width:11%;> <a class = 'one' href='All_FDA.php?item=".urlencode(encrypted_url($row['FDA_NO']))."'>". $row['FDA_NO'] ."</a></td>";
             echo "<td style= width:9%;>".date("d-m-Y", strtotime($row['FDA_EXPIRED'])) ."</td>";
             switch ($diff3) {
                 case ($diff3 <= 0) : echo "<td class = 'red' style= width:9%;> หมดอายุ ";
@@ -185,7 +185,7 @@ include "encode.php";
       } */
 
 //echo "<td style= width:11%;>". ."</td>";
-      echo "<td style= width:11%;> <a href='All_FDA.php?item=".urlencode(encrypted_url($row2['FDA_NO']))."'>". $row2['FDA_NO'] ."</a></td>";
+      echo "<td style= width:11%;> <a class = 'one' href='All_FDA.php?item=".urlencode(encrypted_url($row2['FDA_NO']))."'>". $row2['FDA_NO'] ."</a></td>";
       echo "<td style= width:7%;>". date("d-m-Y", strtotime($row2['FDA_EXPIRED'])) ."</td>";
       
       switch ($diff3) {
