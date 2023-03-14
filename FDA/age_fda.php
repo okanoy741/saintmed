@@ -3,6 +3,22 @@ include "head.php";
 include "encode.php";
 
 ?>
+<style>
+a.one:link, a.one:visited {
+  background-color: white;
+  color: black;
+  border: 2px solid #a71953;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+}
+
+a.one:hover, a.one:active {
+  background-color: #a71953;
+  color: white;
+}
+</style>
 <br><br><br><br><br><br><br><br><br><br><br>
 <div class="grid3">
     <p id ="headr2">ข้อมูลการจับคู่เลขที่สินค้ากับเลขที่ อย.</p>
@@ -89,7 +105,7 @@ include "encode.php";
 
             //echo "<td style= width:11%;>".$row['expiration_status'] ."</td>";
 
-            echo "<td style= width:11%;>". $row['FDA_NO'] ."</td>";
+            echo "<td style= width:11%;> <a class = 'one' href='All_FDA.php?item=".urlencode(encrypted_url($row['FDA_NO']))."'>". $row['FDA_NO'] ."</a></td>";
             echo "<td style= width:9%;>".date("d-m-Y", strtotime($row['FDA_EXPIRED'])) ."</td>";
             switch ($diff3) {
                 case ($diff3 <= 0) : echo "<td class = 'red' style= width:9%;> หมดอายุ ";

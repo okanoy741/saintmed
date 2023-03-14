@@ -35,6 +35,20 @@ select{
 .red4 a : hover{text-decoration: none;}
 .red4 : hover{text-decoration: none;}
 
+#serchBox5,#serchBox6,#serchBox7,#serchBox8{
+	width: 23%;
+	display: inline-block;
+}
+#serchBox9{
+	width: 100%;
+	background-color: #efefef;
+	padding: 0.4rem 0.03rem;
+	border-radius: 0.5rem;
+	margin: 0.5rem 0;
+	cursor: pointer;
+}
+
+
 #serchBoxNO,#serchBoxLess3,#serchBoxLess6,#serchBoxMore6{
 	display: inline-block;
 	padding: 0.5rem 0.03rem;
@@ -185,17 +199,23 @@ table {
 	background-color: #f0efef;
 	margin: 0 20%;
 }
+#serchBox3,#serchBox2{
+	display: inline-block;
+}
+#serchBox3,
+#serchBox3 a ,
 #serchBox2,
 #serchBox2 a{
 	width: 8%;
 	padding: 0.5rem 0;
-	
 	background-color: #094cb5;
 	text-align: center;
 	color: #FFFFFF;
 	border-radius: 0.5rem;
 	text-decoration: none;
 }
+#serchBox3,
+#serchBox3 a,
 #serchBox2:hover,
 #serchBox2:hover a{
 	transition: 0.5s;
