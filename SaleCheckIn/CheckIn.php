@@ -28,20 +28,21 @@ if ($h_id = " ") {
 echo $item4;
 $stmt = null;
 
-$query2 = "SELECT users.username, employee2.ID AS emp_id, employee2.manager_id_fk FROM users 
+$query2 = "SELECT users.username, employee2.ID AS emp_id, employee2.manager_id_fk, employee2.team3_id_fk FROM users 
 LEFT JOIN employee2 on users.sales_code = employee2.abr WHERE users.username = '$item5' " ;
 $stmt2 = $conn2->query( $query2 );
 while ($row2 = $stmt2->fetch(PDO::FETCH_ASSOC)){
 	
 	$emp_id = $row2['emp_id'];
 	$am = $row2['manager_id_fk'];
+	$am_team3 = $row2['team3_id_fk'];
 }
 $stmt2 = null;
 
 
 if(!empty($item1) && !empty($item2) && !empty($item3)&& !empty($h_id)){
-	$query = "INSERT INTO sale_check_in (hospital_id,hospital, department, person, chk_in, username,emp_id,am_id,appove_status,info) 
-	VALUES ('$h_id','$item1', '$item2', '$item3', '$item4','$item5','$emp_id','$am','01','$item6') ";
+	$query = "INSERT INTO sale_check_in (hospital_id,hospital, department, person, chk_in, username,emp_id,am_id,appove_status,info,am_id_team3) 
+	VALUES ('$h_id','$item1', '$item2', '$item3', '$item4','$item5','$emp_id','$am','01','$item6','$am_team3') ";
 	$stmt = $conn->query( $query );
 
 	$stmt = null;
@@ -97,6 +98,12 @@ if(!empty($item1) && !empty($item2) && !empty($item3)&& !empty($h_id)){
 		header("Location: ../SaleCheckIn/indexAM.php?");
 		break;
 		case "savinee" :
+		$stmt = null;
+		$stmt2 = null;
+		$conn = null;
+		header("Location: ../SaleCheckIn/indexAM.php?");
+		break;
+		case "siriporn" :
 		$stmt = null;
 		$stmt2 = null;
 		$conn = null;

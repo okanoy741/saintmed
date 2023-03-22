@@ -104,7 +104,7 @@ include "../SaleCheckIn/head.php";
 
  <h2 class='h_center'><input  style= width:95%; type='text' name ='item2' 'class='itemName' placeholder='แผนกที่เข้าพบ' required><BR><BR></h2>
  <h2 class='h_center'><input  style= width:95%; type='text' name ='item3' 'class='itemName' placeholder='บุคคลที่เข้าพบ' required><BR><BR></h2>
- <h2 class='h_center'><input  style= width:95%; type='text' name ='item6' 'class='itemName' placeholder='รายละเอียดการเข้าพบ' required><BR><BR></h2>
+ <h2 class='h_center'><textarea  style= width:95%; name ='item6' 'class='itemName' placeholder='รายละเอียดการเข้าพบ' maxlength='255' required></textarea><BR><BR></h2>
  
  <h2 class='h_center'><input  style= width:50%; type='submit' name ='item5' 'class='itemName' value = 'บันทึก' ></h2>
  ";
@@ -112,7 +112,7 @@ include "../SaleCheckIn/head.php";
 </form>
 <br><br>
 <div class="name-wrap">
-    <a class="btn_req1" href=../SaleCheckIn/indexSale.php?> ตรวจสอบรายงาน </a>
+    <a class="btn_req1" href=../SaleCheckIn/indexAM.php?> ตรวจสอบรายงาน </a>
 </div>
 <BR><BR>
 <h1 class="h_center1">***หากต้องการแก้ไขวันที่ให้ทำการเขียน Memo และ ให้หัวหน้าเซ็นต์รับทราบก่อนทุกครั้ง****</h1>

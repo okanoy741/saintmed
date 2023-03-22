@@ -42,7 +42,7 @@ a.one:hover, a.one:active {
     </form>
     <br><br><br><br><br>
 </div>
-<br>
+<br><br>
 <div >
     <?php
     $agestart = decrypted_url($_GET['age']);

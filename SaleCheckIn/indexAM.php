@@ -5,12 +5,21 @@ session_start();
 $abr = $_SESSION['sales_code'];
 
 require_once "../SaleCheckIn/conn.php";  // Using database connection file here
-$query3 = "SELECT users.username, employee2.ID AS emp_id, employee2.manager_id_fk FROM users 
+$query3 = "SELECT users.username, employee2.ID AS emp_id, employee2.manager_id_fk, employee2.team3_id_fk FROM users 
 LEFT JOIN employee2 on users.sales_code = employee2.abr WHERE users.username = '".$_SESSION['USERNAME']." '";
 $stmt3 = $conn2->query( $query3 );
 while ($row3 = $stmt3->fetch(PDO::FETCH_ASSOC)){
     $manager_id = $row3['manager_id_fk'];
     $emp_id = $row3['emp_id'];
+    
+    if ($row3['team3_id_fk'] <> NULL) {
+        // code...
+        $am_team3 = $row3['team3_id_fk'];
+    }
+    elseif ($row3['team3_id_fk'] == NULL){
+        $am_team3 = "0";
+    }
+     
 }
 
 
@@ -56,10 +65,21 @@ include "head.php";
     
     if (empty($_GET)) {
         // code...
-        $query = "SELECT * FROM sale_check_in 
-        WHERE appove_status = '01' AND am_id = $emp_id 
-        ORDER BY id DESC
-        ";
+        if ($am_team3 == 0) {
+            // code...
+            $query = "SELECT * FROM sale_check_in 
+            WHERE appove_status = '01' AND (am_id = $emp_id ) 
+            ORDER BY id DESC
+            ";
+        }
+        elseif ($am_team3 <> 0) {
+             // code...
+            $query = "SELECT * FROM sale_check_in 
+            WHERE appove_status = '01' AND (am_id_team3 = $am_team3 ) 
+            ORDER BY id DESC
+            ";
+        }
+        
 
         $stmt = $conn->query( $query );
 
@@ -105,11 +125,21 @@ include "head.php";
       </li>
       ";
       /*-------รายการได้รับเลขแล้ว---------*/
-      $query2 = "SELECT * FROM sale_check_in 
-      WHERE appove_status = '02' AND am_id = $emp_id 
 
-      ORDER BY id DESC
-      ";
+     if ($am_team3 == 0) {
+            // code...
+            $query2 = "SELECT * FROM sale_check_in 
+            WHERE appove_status = '02' AND (am_id = $emp_id ) 
+            ORDER BY id DESC
+            ";
+        }
+        elseif ($am_team3 <> 0) {
+             // code...
+            $query2 = "SELECT * FROM sale_check_in 
+            WHERE appove_status = '02' AND (am_id_team3 = $am_team3 ) 
+            ORDER BY id DESC
+            ";
+        }
       $stmt2 = $conn->query( $query2 );
 
       echo "<li><a href='#'>รับทราบแล้ว(ลูกทีม)</a>
