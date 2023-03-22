@@ -56,6 +56,7 @@
 		<th>towhscode</th>
 		<th>usercomplete</th>
 		<th>whsname</th>
+		<th>SN No.</th>
 		<th>status</th>
 		<th>sale comment</th>
 		</tr>
@@ -66,6 +67,7 @@ while ($row = $result->fetch(PDO::FETCH_ASSOC)){ // Important line !!! Check sum
 	foreach ($row as $field => $value) { // I you want you can right this line like this: foreach($row as $value) {
         echo "<td>" . iconv('TIS-620', 'UTF-8',$value ). "</td>"; // I just did not use "htmlspecialchars()" function. 
     }
+    echo " <td> SN ".iconv('TIS-620', 'UTF-8',$row['serialno'])." </td> ";
 
     switch ($row['U_status']) {
     	case '01':
@@ -105,6 +107,7 @@ while ($row = $result->fetch(PDO::FETCH_ASSOC)){ // Important line !!! Check sum
     	echo "<td>...</td>";
     	break;
     }
+
     if (!empty($row['docnum'])) {
 	 	// code...
     	$query2 = "select * from comments where table_name = 'alltrans' and table_row = ".$row['docnum']."";

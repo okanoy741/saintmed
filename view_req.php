@@ -176,9 +176,12 @@ include "head.php";
                             <th>ราคา:หน่วย</th>
                             <th>เลขที่ใบยืม</th>
                             <th>Appove By</th>
+                            <th>อย.</th>
                             </tr>";
 
                             while ($row = $stmt->fetch(PDO::FETCH_ASSOC)){
+                              $itemFDA = $row['itemCode'];
+
                               echo "<td style= width:8%;>". iconv('TIS-620', 'UTF-8',$row['project_code1']) ."</td>";
                               echo "<td style= width:16%;>". $row['itemCode'] ."</td>";
                               echo "<td>". iconv('TIS-620', 'UTF-8',$row['ItemName']) ." <br>". iconv('TIS-620', 'UTF-8',$row['itemName1']) ." </td>";
@@ -186,6 +189,19 @@ include "head.php";
                               echo "<td id='no' style= width:10%; >". number_format($row['price']) ." </td>";
                               echo "<td>". iconv('TIS-620', 'UTF-8',$row['binfo']) ." </td>";
                               echo "<td id='no' style= width:10%; >". $row['appove'] ." </td>";
+
+                              $queryFDA = "SELECT * FROM ALL_FDA_VIEW WHERE itemCode = '$itemFDA' ";
+                              $stmtFDA = $conn3->query( $queryFDA );
+                              while ($rowFDA = $stmtFDA->fetch(PDO::FETCH_ASSOC)){
+                                switch ($rowFDA['FDA_STATUS']) {
+                                  case ("HAVE      ") : echo "<td style= width:4%;> มี </td>";
+                                  break;
+                                  case ("NOT       ") : echo "<td style= width:4%; class = 'red'> สินค้าเลิกผลิต </td>";
+                                  break;
+                                  case $rowFDA['FDA_STATUS'] == NULL : echo "<td style= width:4%; class = 'red'> สินค้าเลิกผลิต </td>";
+                                  break;
+                                }
+                              }
 
                               echo "</tr>";
                             }

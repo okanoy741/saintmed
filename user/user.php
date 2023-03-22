@@ -37,7 +37,7 @@
 				<?php
                         require_once "../connect.php";  // Using database connection file here
                         if (empty($_GET)) {
-                        	$query = "SELECT users.username , users.pswd , employee2.uid, users.name , users.lastname ,employee2.abr, employee2.emloffice
+                        	$query = "SELECT employee2.id as emp2id,users.id as userid,users.username , users.pswd , employee2.uid, users.name , users.lastname ,employee2.abr, employee2.emloffice
                         	FROM (users LEFT JOIN employee2
                              ON users.sales_code = employee2.abr)
                              WHERE users.username IS NOT NULL  AND employee2.abr IS NOT NULL
@@ -47,6 +47,8 @@
                              echo "<table class='table_h' >
                              <tr>
                              <th>รหัสพนักงาน</th>
+							  <th>USERID</th>
+							 <th>EMP2ID</th>
                              <th>username</th>
                              <th>password</th>
                              <th>ชื่อ</th>
@@ -58,7 +60,10 @@
 
                              while ($row = $stmt->fetch(PDO::FETCH_ASSOC)){
                                   echo "<td >". iconv('TIS-620','UTF-8' ,$row['uid']) ."</a>"."</td>";
+								 		echo "<td >". iconv('TIS-620','UTF-8' ,$row['userid']) ."</td>";
+							echo "<td >". iconv('TIS-620','UTF-8' ,$row['emp2id']) ."</td>";
                                   echo "<td >"."<a href='\../user/updatePass.php?uid=".$row['username']."'>". iconv('TIS-620','UTF-8' ,$row['username']) ."</td>";
+								  
                                   echo "<td >". iconv('TIS-620','UTF-8' ,$row['pswd']) ."</td>";
                                   echo "<td >". iconv('TIS-620','UTF-8' ,$row['name']) ."</td>";
                                   echo "<td >". iconv('TIS-620','UTF-8' ,$row['lastname']) ."</td>";
@@ -75,7 +80,7 @@
                       }
 
                       elseif (!empty($_GET)) {
-                       $query2 = "SELECT users.username , users.pswd , users.name , users.lastname ,employee2.abr, employee2.emloffice, employee2.uid
+                       $query2 = "SELECT employee2.id as emp2id,users.id as userid,users.username , users.pswd , users.name , users.lastname ,employee2.abr, employee2.emloffice, employee2.uid
                        FROM (users LEFT JOIN employee2
                        ON users.sales_code = employee2.abr)
                        WHERE users.name Like '%".$_GET['uname']."%'  or users.username Like '%".$_GET['uname']."%'
@@ -84,6 +89,8 @@
                        echo "<table class='table_h' >
                        <tr>
                        <th>รหัสพนักงาน</th>
+					   	  <th>USERID</th>
+					    <th>EMP2ID</th>
                        <th>username</th>
                        <th>password</th>
                        <th>ชื่อ</th>
@@ -95,6 +102,8 @@
 
                        while ($row2 = $stmt2->fetch(PDO::FETCH_ASSOC)){
                             echo "<td >". iconv('TIS-620','UTF-8' ,$row2['uid']) ."</a>"."</td>";
+							echo "<td >". iconv('TIS-620','UTF-8' ,$row2['userid']) ."</td>";
+							echo "<td >". iconv('TIS-620','UTF-8' ,$row2['emp2id']) ."</td>";
                             echo "<td >"."<a href='\../user/updatePass.php?uid=".$row2['username']."'>". iconv('TIS-620','UTF-8' ,$row2['username']) ."</td>";
                             echo "<td >". iconv('TIS-620','UTF-8' ,$row2['pswd']) ."</td>";
                             echo "<td >". iconv('TIS-620','UTF-8' ,$row2['name']) ."</td>";
