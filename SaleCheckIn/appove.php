@@ -6,7 +6,8 @@ if (empty($_SESSION['USERNAME']) ) {
 }
 
     require_once "../SaleCheckIn/conn.php";
-    $sql = $conn->query("UPDATE sale_check_in SET appove_status = '2' WHERE id = '".$_GET['ID']."' ");
+    $comment = $_POST['comment'];
+    $sql = $conn->query("UPDATE sale_check_in SET appove_status = '2', comment_am = '$comment' WHERE id = '".$_GET['ID']."' ");
    
     header("Location: ../SaleCheckIn/indexAM.php?");
 ?>

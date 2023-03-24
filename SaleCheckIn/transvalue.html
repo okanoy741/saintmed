@@ -1,0 +1,173 @@
+delete from [server6].[dbo].[sum_result_all]
+;with DataGroupA as
+
+(select z.TransNum,z.ItemCode,z.ItemName,z.BM,z.Brand,z.Descr,z.CreateDate 'InDate',z.Warehouse,z.BASE_REF,z.DistNumber,z.Quantity,z.CalcPrice,sum(z.StockQty) 'StockQty' 
+from
+(select '' as 'TransNum',a.ItemCode,b.ItemName,b.U_bm 'BM',b.U_brand 'Brand',c.Descr,'9999-12-31' as 'CreateDate',
+'' as 'BASE_REF',a.Warehouse,'' as 'DistNumber',0 'Quantity',0 'CalcPrice',
+isnull(-sum(a.InQty-a.OutQty),0) as 'StockQty'
+from newsm.dbo.OINM a
+left outer join newsm.dbo.OITM b on a.ItemCode = b.ItemCode
+left outer join newsm.dbo.UFD1 c on b.U_type_item = c.FldValue and c.TableID = 'OITM' and c.FieldID = '3'
+where a.CreateDate <= GETDATE() and b.ManBtchNum = 'Y'
+group by a.TransType,a.ItemCode,b.ItemName,b.U_bm,b.U_brand,c.Descr,a.Warehouse)z
+group by z.TransNum,z.ItemCode,z.ItemName,z.BM,z.Brand,z.Descr,z.CreateDate,z.Warehouse,z.BASE_REF,z.DistNumber,z.Quantity,z.CalcPrice
+having sum(z.StockQty) <> 0
+),
+DataGroupB as
+(
+Select distinct a.TransNum,a.ItemCode,d.ItemName,d.U_bm 'BM',d.U_brand 'Brand',d1.Descr,isnull(c.U_inDate,c.InDate) 'InDate',a.Warehouse,a.BASE_REF,c.DistNumber,b.Quantity,f.TransValue/f.Quantity 'CalcPrice',a.InQty
+from  newsm.dbo.OINM a 
+left outer join (select a.ItemCode,a.LocCode,a.AppDocNum,a.DocLine,b.MdAbsEntry,b.Quantity from newsm.dbo.OITL a inner join newsm.dbo.ITL1 b on a.LogEntry = b.LogEntry)b on a.ItemCode =b.ItemCode and a.Warehouse  = b.LocCode and a.BASE_REF = b.AppDocNum and a.DocLineNum = b.DocLine
+left outer JOIN  newsm.dbo.OBTN c on b.MdAbsEntry=c.AbsEntry
+left outer join newsm.dbo.OITM d on a.ItemCode = d.ItemCode and d.ManBtchNum = 'Y'
+left outer join newsm.dbo.UFD1 d1 on d.U_type_item = d1.FldValue and d1.TableID = 'OITM' and d1.FieldID = '3'
+left outer join newsm.dbo.OITB e on d.ItmsGrpCod = e.ItmsGrpCod
+inner join (select f.ItemCode,f.Warehouse,sum(f.InQty-f.OutQty) 'Quantity',sum(f.TransValue) 'TransValue'  from newsm.dbo.OINM f where f.CreateDate <= GETDATE()
+group by f.ItemCode,f.Warehouse having sum(f.InQty-f.OutQty) <> 0)f on a.ItemCode = f.ItemCode and a.Warehouse = f.Warehouse
+where a.InQty > 0 and b.Quantity > 0 and c.DistNumber is not null and a.CreateDate <= GETDATE() --and a.TransType <> '67'
+)   INSERT INTO [server6].[dbo].[sum_result_all]
+           ([CompnyName]
+           ,[ItemCode]
+           ,[ItemName]
+           ,[Brand]
+           ,[BM]
+           ,[Descr]
+           ,[InDate]
+           ,[DistNumber]
+           ,[Quantity]
+           ,[TransValue]
+           ,[Q01]
+           ,[T01]
+           ,[Q02]
+           ,[T02]
+           ,[Q03]
+           ,[T03]
+           ,[Q04]
+           ,[T04]
+           ,[Q05]
+           ,[T05]
+           ,[Q06]
+           ,[T06]
+           ,[Q07]
+           ,[T07]
+           ,[Q08]
+           ,[T08]
+           ,[Q09]
+           ,[T09]
+           ,[Q010]
+           ,[T010])
+select x.CompnyName,y.ItemCode,y.ItemName,y.Brand,y.BM,y.Descr,y.InDate,y.DistNumber,y.Quantity,y.TransValue,
+case when DATEDIFF(MM,y.InDate,GETDATE()) between 0 and 3 then y.Quantity end as 'Q01',
+case when DATEDIFF(MM,y.InDate,GETDATE()) between 0 and 3 then y.TransValue end as 'T01',
+case when DATEDIFF(MM,y.InDate,GETDATE()) between 4 and 6 then y.Quantity end as 'Q02',
+case when DATEDIFF(MM,y.InDate,GETDATE()) between 4 and 6 then y.TransValue end as 'T02',
+case when DATEDIFF(MM,y.InDate,GETDATE()) between 7 and 12 then y.Quantity end as 'Q03',
+case when DATEDIFF(MM,y.InDate,GETDATE()) between 7 and 12 then y.TransValue end as 'T03',
+case when DATEDIFF(MM,y.InDate,GETDATE()) between 13 and 24 then y.Quantity end as 'Q04',
+case when DATEDIFF(MM,y.InDate,GETDATE()) between 13 and 24 then y.TransValue end as 'T04',
+case when DATEDIFF(MM,y.InDate,GETDATE()) between 25 and 36 then y.Quantity end as 'Q05',
+case when DATEDIFF(MM,y.InDate,GETDATE()) between 25 and 36 then y.TransValue end as 'T05',
+case when DATEDIFF(MM,y.InDate,GETDATE()) between 37 and 48 then y.Quantity end as 'Q06',
+case when DATEDIFF(MM,y.InDate,GETDATE()) between 37 and 48 then y.TransValue end as 'T06',
+case when DATEDIFF(MM,y.InDate,GETDATE()) between 49 and 60 then y.Quantity end as 'Q07',
+case when DATEDIFF(MM,y.InDate,GETDATE()) between 49 and 60 then y.TransValue end as 'T07',
+case when DATEDIFF(MM,y.InDate,GETDATE()) between 61 and 72 then y.Quantity end as 'Q08',
+case when DATEDIFF(MM,y.InDate,GETDATE()) between 61 and 72 then y.TransValue end as 'T08',
+case when DATEDIFF(MM,y.InDate,GETDATE()) between 73 and 84 then y.Quantity end as 'Q09',
+case when DATEDIFF(MM,y.InDate,GETDATE()) between 73 and 84 then y.TransValue end as 'T09',
+case when DATEDIFF(MM,y.InDate,GETDATE()) > 84 then y.Quantity end as 'Q10',
+case when DATEDIFF(MM,y.InDate,GETDATE()) > 84 then y.TransValue end as 'T10'
+from(
+select e.ItemCode,e.ItemName,e.BM,e.Brand,e.Descr,e.InDate,e.DistNumber,e.StockQty 'Quantity',CONVERT(DECIMAL(10,2),e.StockQty*e.CalcPrice) as 'TransValue' from(select d.ItemCode,d.ItemName,d.BM,d.Brand,d.Descr,d.InDate,d.DistNumber,d.CalcPrice,
+case when d.Cumulative <= 0 then d.StockQty else d.StockQty-d.Cumulative end as 'StockQty'
+from(
+select c.TransNum,c.ItemCode,c.ItemName,c.BM,c.Brand,c.Descr,c.InDate,c.Warehouse,c.BASE_REF,c.DistNumber,c.Quantity,c.CalcPrice,c.StockQty,
+sum(c.StockQty) over (partition by c.ItemCode,c.Warehouse order by c.InDate desc,c.TransNum desc rows unbounded preceding) as 'Cumulative'
+from(
+select * from DataGroupA a
+union all
+select * from DataGroupB b)c
+)d
+where d.StockQty > d.Cumulative)e)y,newsm.dbo.OADM x 
+order by y.ItemCode,y.InDate,y.DistNumber
+
+UPDATE [server6].[dbo].[Sum_result_all] set product_type = 'serial' FROM [server6].[dbo].[Sum_result_all] where  product_type IS NULL
+UPDATE [server6].[dbo].[Sum_result_all] SET update_time = GETDATE() FROM [server6].[dbo].[Sum_result_all] where update_time IS NULL 
+
+
+
+
+
+
+
+
+INSERT INTO [server6].[dbo].[sum_result_all]
+           ([CompnyName]
+           ,[ItemCode]
+           ,[ItemName]
+           ,[Brand]
+           ,[BM]
+           ,[Descr]
+           ,[InDate]
+           ,[DistNumber]
+           ,[Quantity]
+           ,[TransValue]
+           ,[Q01]
+           ,[T01]
+           ,[Q02]
+           ,[T02]
+           ,[Q03]
+           ,[T03]
+           ,[Q04]
+           ,[T04]
+           ,[Q05]
+           ,[T05]
+           ,[Q06]
+           ,[T06]
+           ,[Q07]
+           ,[T07]
+           ,[Q08]
+           ,[T08]
+           ,[Q09]
+           ,[T09]
+           ,[Q010]
+           ,[T010]
+           )
+select x.CompnyName,y.ItemCode,y.ItemName,y.Brand,y.BM,y.Descr,y.InDate,y.BatchNum,y.Quantity,y.TransValue,
+case when DATEDIFF(MM,y.InDate,GETDATE()) between 0 and 3 then y.Quantity end as 'Q01',
+case when DATEDIFF(MM,y.InDate,GETDATE()) between 0 and 3 then y.TransValue end as 'T01',
+case when DATEDIFF(MM,y.InDate,GETDATE()) between 4 and 6 then y.Quantity end as 'Q02',
+case when DATEDIFF(MM,y.InDate,GETDATE()) between 4 and 6 then y.TransValue end as 'T02',
+case when DATEDIFF(MM,y.InDate,GETDATE()) between 7 and 12 then y.Quantity end as 'Q03',
+case when DATEDIFF(MM,y.InDate,GETDATE()) between 7 and 12 then y.TransValue end as 'T03',
+case when DATEDIFF(MM,y.InDate,GETDATE()) between 13 and 24 then y.Quantity end as 'Q04',
+case when DATEDIFF(MM,y.InDate,GETDATE()) between 13 and 24 then y.TransValue end as 'T04',
+case when DATEDIFF(MM,y.InDate,GETDATE()) between 25 and 36 then y.Quantity end as 'Q05',
+case when DATEDIFF(MM,y.InDate,GETDATE()) between 25 and 36 then y.TransValue end as 'T05',
+case when DATEDIFF(MM,y.InDate,GETDATE()) between 37 and 48 then y.Quantity end as 'Q06',
+case when DATEDIFF(MM,y.InDate,GETDATE()) between 37 and 48 then y.TransValue end as 'T06',
+case when DATEDIFF(MM,y.InDate,GETDATE()) between 49 and 60 then y.Quantity end as 'Q07',
+case when DATEDIFF(MM,y.InDate,GETDATE()) between 49 and 60 then y.TransValue end as 'T07',
+case when DATEDIFF(MM,y.InDate,GETDATE()) between 61 and 72 then y.Quantity end as 'Q08',
+case when DATEDIFF(MM,y.InDate,GETDATE()) between 61 and 72 then y.TransValue end as 'T08',
+case when DATEDIFF(MM,y.InDate,GETDATE()) between 73 and 84 then y.Quantity end as 'Q09',
+case when DATEDIFF(MM,y.InDate,GETDATE()) between 73 and 84 then y.TransValue end as 'T09',
+case when DATEDIFF(MM,y.InDate,GETDATE()) > 84 then y.Quantity end as 'Q10',
+case when DATEDIFF(MM,y.InDate,GETDATE()) > 84 then y.TransValue end as 'T10'
+from(select z.ItemCode,z.ItemName,z.U_brand 'Brand',z.U_bm 'BM',z.Descr,z.InDate,z.BatchNum,z.Quantity,isnull(z.CostTotal,0) 'TransValue'
+from
+(select a.ItemCode,d.ItemName,d.InvntryUom,e.ItmsGrpNam,f.Descr,d.U_brand,d.U_bm,a.LocCode 'WareHouse',c.DistNumber 'BatchNum',isnull(c.U_inDate,c.InDate) 'InDate',c.CostTotal,sum(b.Quantity) 'Quantity'
+from newsm.dbo.OITL a
+left outer join newsm.dbo.ITL1 b on a.LogEntry = b.LogEntry 
+left outer join newsm.dbo.OSRN c on b.MdAbsEntry = c.AbsEntry 
+left outer join newsm.dbo.OITM d on a.ItemCode = d.ItemCode 
+left outer join newsm.dbo.OITB e on d.ItmsGrpCod = e.ItmsGrpCod
+left outer join newsm.dbo.UFD1 f on d.U_type_item = f.FldValue and f.TableID = 'OITM' and f.FieldID = '3'
+where d.ManSerNum = 'Y' and a.CreateDate <= GETDATE() and c.DistNumber is not null
+group by a.ItemCode,d.ItemName,d.InvntryUom,e.ItmsGrpNam,f.Descr,d.U_brand,d.U_bm,a.LocCode,c.DistNumber,isnull(c.U_inDate,c.InDate),c.CostTotal)z,newsm.dbo.OADM y
+where z.Quantity <> 0)y,newsm.dbo.OADM x
+order by y.ItemCode,y.InDate,y.BatchNum
+
+UPDATE [server6].[dbo].[Sum_result_all] set product_type = 'batch' FROM [server6].[dbo].[Sum_result_all] where  product_type IS NULL
+UPDATE [server6].[dbo].[Sum_result_all] SET update_time = GETDATE() FROM [server6].[dbo].[Sum_result_all] where update_time IS NULL 

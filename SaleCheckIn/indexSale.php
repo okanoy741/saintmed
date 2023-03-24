@@ -113,7 +113,7 @@ include "head.php";
         echo "<td> ".$row['hospital']." </td>";
         echo "<td> ".$row['department']." </td>";
         echo "<td> ".$row['person']." </td>";
-        echo "<td> ".$row['info']." </td>";
+        echo "<td style= width:50%;> ".$row['info']." </td>";
         echo "<td> ".$row['username']." </td>";
         switch ($row['appove_status']) {
           case "1" : echo "<td> รอรับทราบ </td>";
@@ -147,9 +147,8 @@ include "head.php";
   <th>เข้าพบ</th>
   <th>รายละเอียดเข้าพบ</th>
   <th>sale</th>
-  
   <th>สถานะการตรวจของ AM</th>
-
+  <th>AM comment</th>
   </tr>";
 
   while ($row2 = $stmt2->fetch(PDO::FETCH_ASSOC)){
@@ -157,7 +156,7 @@ include "head.php";
       echo "<td> ".$row2['hospital']." </td>";
       echo "<td> ".$row2['department']." </td>";
       echo "<td> ".$row2['person']." </td>";
-      echo "<td> ".$row2['info']." </td>";
+      echo "<td style= width:30%;> ".$row2['info']." </td>";
       echo "<td> ".$row2['username']." </td>";
       switch ($row2['appove_status']) {
           case "1" : echo "<td> รอรับทราบ </td>";
@@ -165,6 +164,7 @@ include "head.php";
           case "2" : echo "<td> รับทราบแล้ว </td>";
           break;
       }
+      echo "<td> ".$row2['comment_am']." </td>";
       echo "</tr>";
   } 
 

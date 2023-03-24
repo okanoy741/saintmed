@@ -19,7 +19,7 @@ while ($row3 = $stmt3->fetch(PDO::FETCH_ASSOC)){
     elseif ($row3['team3_id_fk'] == NULL){
         $am_team3 = "0";
     }
-     
+
 }
 
 
@@ -99,6 +99,7 @@ include "head.php";
         <th>รายละเอียดเข้าพบ</th>
         <th>sale</th>
         <th>สถานะการตรวจของ AM</th>
+        <th>comment</th>
         <th></th>
         </tr>
         ";
@@ -107,7 +108,7 @@ include "head.php";
           echo "<td> ".$row2['hospital']." </td>";
           echo "<td> ".$row2['department']." </td>";
           echo "<td> ".$row2['person']." </td>";
-          echo "<td> ".$row2['info']." </td>";
+          echo "<td style= width:30%;> ".$row2['info']." </td>";
           echo "<td> ".$row2['username']." </td>";
           switch ($row2['appove_status']) {
               case "1" : echo "<td> รอรับทราบ </td>";
@@ -115,7 +116,10 @@ include "head.php";
               case "2" : echo "<td> รับทราบแล้ว </td>";
               break;
           }
-          echo "<td><a href=\"../SaleCheckIn/appove.php?ID=".iconv('TIS-620', 'UTF-8',$row2['id'])."\"> รับทราบ </a></td>";
+          echo "
+          <form action='../SaleCheckIn/appove.php?ID=".$row2['id']."' method='POST'>
+          <td> <textarea name = 'comment'>".$row2['comment_am']."</textarea> </td>";
+          echo "<td><input type='submit' value='รับทราบ'></td>";
           echo "</tr>";
       } 
 
@@ -126,37 +130,38 @@ include "head.php";
       ";
       /*-------รายการได้รับเลขแล้ว---------*/
 
-     if ($am_team3 == 0) {
+      if ($am_team3 == 0) {
             // code...
-            $query2 = "SELECT * FROM sale_check_in 
-            WHERE appove_status = '02' AND (am_id = $emp_id ) 
-            ORDER BY id DESC
-            ";
-        }
-        elseif ($am_team3 <> 0) {
+        $query2 = "SELECT * FROM sale_check_in 
+        WHERE appove_status = '02' AND (am_id = $emp_id ) 
+        ORDER BY id DESC
+        ";
+    }
+    elseif ($am_team3 <> 0) {
              // code...
-            $query2 = "SELECT * FROM sale_check_in 
-            WHERE appove_status = '02' AND (am_id_team3 = $am_team3 ) 
-            ORDER BY id DESC
-            ";
-        }
-      $stmt2 = $conn->query( $query2 );
+        $query2 = "SELECT * FROM sale_check_in 
+        WHERE appove_status = '02' AND (am_id_team3 = $am_team3 ) 
+        ORDER BY id DESC
+        ";
+    }
+    $stmt2 = $conn->query( $query2 );
 
-      echo "<li><a href='#'>รับทราบแล้ว(ลูกทีม)</a>
-      <section>
-      <p>
-      <table class='table_h6' >
-      <tr>
-      <th>วันที่</th>
-      <th>โรงพยาบาล</th>
-      <th>แผนก</th>
-      <th>เข้าพบ</th>
-      <th>รายละเอียดเข้าพบ</th>
-      <th>sale</th>
-      <th>สถานะการตรวจของ AM</th>
-      </tr>";
+    echo "<li><a href='#'>รับทราบแล้ว(ลูกทีม)</a>
+    <section>
+    <p>
+    <table class='table_h6' >
+    <tr>
+    <th>วันที่</th>
+    <th>โรงพยาบาล</th>
+    <th>แผนก</th>
+    <th>เข้าพบ</th>
+    <th>รายละเอียดเข้าพบ</th>
+    <th>sale</th>
+    <th>สถานะการตรวจของ AM</th>
+    <th>AM comment</th>
+    </tr>";
 
-      while ($row2 = $stmt2->fetch(PDO::FETCH_ASSOC)){
+    while ($row2 = $stmt2->fetch(PDO::FETCH_ASSOC)){
 
         echo "<td> ". date("d-m-Y H:i:s", strtotime($row2['chk_in'])) ." </td>";
         echo "<td> ".$row2['hospital']." </td>";
@@ -170,6 +175,7 @@ include "head.php";
           case "2" : echo "<td> รับทราบแล้ว </td>";
           break;
       }
+      echo "<td> ".$row2['comment_am']." </td>";
       echo "</tr>";
   } 
 
@@ -197,6 +203,7 @@ include "head.php";
   <th>รายละเอียดเข้าพบ</th>
   <th>sale</th>
   <th>สถานะการตรวจของ AM</th>
+  <th>comments</th>
   </tr>";
 
   while ($row2 = $stmt2->fetch(PDO::FETCH_ASSOC)){
@@ -213,6 +220,7 @@ include "head.php";
       case "2" : echo "<td> รับทราบแล้ว </td>";
       break;
   }
+  echo "<td> ".$row2['comment_am']." </td>";
   echo "</tr>";
 } 
 
@@ -240,6 +248,7 @@ echo "<li><a href='#'>รับทราบแล้ว(AM)</a>
 <th>รายละเอียดเข้าพบ</th>
 <th>sale</th>
 <th>สถานะการตรวจของ AM</th>
+<th>comments</th>
 </tr>";
 
 while ($row2 = $stmt2->fetch(PDO::FETCH_ASSOC)){
@@ -256,6 +265,7 @@ while ($row2 = $stmt2->fetch(PDO::FETCH_ASSOC)){
       case "2" : echo "<td> รับทราบแล้ว </td>";
       break;
   }
+  echo "<td> ".$row2['comment_am']." </td>";
   echo "</tr>";
 } 
 
@@ -270,91 +280,169 @@ elseif (!empty($_GET)) {
     $dec1=$_GET['enc1'];
     $dec2=$_GET['enc2'];
 
-    if (!empty($dec1) && $dec2=="") {
+    if ($am_team3 == 0) {
+            // code...
+        if (!empty($dec1) && $dec2=="") {
         // code...
-        $query = "SELECT * FROM sale_check_in 
-        WHERE appove_status = '01' AND am_id = $emp_id AND (chk_in LIKE '%$dec1%')
-        ORDER BY id DESC
-        ";
+            $query = "SELECT * FROM sale_check_in 
+            WHERE appove_status = '01' AND am_id = $emp_id AND (chk_in LIKE '%$dec1%')
+            ORDER BY id DESC
+            ";
+        }
+        elseif ($dec1=="" && !empty($dec2)) {
+        // code...
+            $query = "SELECT * FROM sale_check_in 
+            WHERE appove_status = '01' AND am_id = $emp_id AND (username LIKE '%$dec2%')
+            ORDER BY id DESC
+            ";
+        }
+        elseif ($dec2<>"" && $dec1<>"") {
+        // code...
+            $query = "SELECT * FROM sale_check_in 
+            WHERE appove_status = '01' AND am_id = $emp_id AND (chk_in LIKE '%$dec1%' AND (username LIKE '%$dec2%' OR hospital LIKE '%$dec2%' OR department LIKE '%$dec2%'))
+            ORDER BY id DESC
+            ";
+        }
+        elseif ($dec1 == NULL && $dec2 == NULL) {  
+            $query = "SELECT * FROM sale_check_in 
+            WHERE appove_status = '01' AND am_id = $emp_id
+            ";
+        }
     }
-    elseif ($dec1=="" && !empty($dec2)) {
+    elseif ($am_team3 <> 0) {
+             // code...
+        if (!empty($dec1) && $dec2=="") {
         // code...
-        $query = "SELECT * FROM sale_check_in 
-        WHERE appove_status = '01' AND am_id = $emp_id AND (username LIKE '%$dec2%')
-        ORDER BY id DESC
-        ";
+            $query = "SELECT * FROM sale_check_in 
+            WHERE appove_status = '01' AND am_id_team3 = $am_team3 AND (chk_in LIKE '%$dec1%')
+            ORDER BY id DESC
+            ";
+        }
+        elseif ($dec1=="" && !empty($dec2)) {
+        // code...
+            $query = "SELECT * FROM sale_check_in 
+            WHERE appove_status = '01' AND am_id_team3 = $am_team3 AND (username LIKE '%$dec2%')
+            ORDER BY id DESC
+            ";
+        }
+        elseif ($dec2<>"" && $dec1<>"") {
+        // code...
+            $query = "SELECT * FROM sale_check_in 
+            WHERE appove_status = '01' AND am_id_team3 = $am_team3 AND (chk_in LIKE '%$dec1%' AND (username LIKE '%$dec2%' OR hospital LIKE '%$dec2%' OR department LIKE '%$dec2%'))
+            ORDER BY id DESC
+            ";
+        }
+        elseif ($dec1 == NULL && $dec2 == NULL) {  
+            $query = "SELECT * FROM sale_check_in 
+            WHERE appove_status = '01' AND am_id_team3 = $am_team3
+            ";
+        }
     }
-    elseif ($dec2<>"" && $dec1<>"") {
+    
+
+$stmt = $conn->query( $query );
+
+echo "<ul id='nav'>
+<li><a href='#'>รอรับทราบ(ลูกทีม)</a>
+<section>
+<p>";
+
+echo "
+<table class='table_h6' >
+<tr>
+<th>วันที่</th>
+<th>โรงพยาบาล</th>
+<th>แผนก</th>
+<th>เข้าพบ</th>
+<th>รายละเอียดเข้าพบ</th>
+<th>sale</th>
+<th>สถานะการตรวจของ AM</th>
+<th>comment</th>
+<th></th>
+</tr>
+";
+while ($row2 = $stmt->fetch(PDO::FETCH_ASSOC)){
+  echo "<td> ". date("d-m-Y H:i:s", strtotime($row2['chk_in'])) ." </td>";
+  echo "<td> ".$row2['hospital']." </td>";
+  echo "<td> ".$row2['department']." </td>";
+  echo "<td> ".$row2['person']." </td>";
+  echo "<td> ".$row2['info']." </td>";
+  echo "<td> ".$row2['username']." </td>";
+  switch ($row2['appove_status']) {
+      case "1" : echo "<td> รอรับทราบ </td>";
+      break;
+      case "2" : echo "<td> รับทราบแล้ว </td>";
+      break;
+  }
+  echo "<td> ".$row2['comment_am']." </td>";
+  echo "<td><a href=\"../SaleCheckIn/appove.php?ID=".iconv('TIS-620', 'UTF-8',$row2['id'])."\"> รับทราบ </a></td>";
+  echo "</tr>";
+} 
+
+echo "</table>
+</p>
+</section>
+</li>
+";
+/*-------รายการได้รับเลขแล้ว---------*/
+if ($am_team3 == 0) {
+            // code...
+        if (!empty($dec1) && $dec2=="") {
         // code...
-        $query = "SELECT * FROM sale_check_in 
-        WHERE appove_status = '01' AND am_id = $emp_id AND (chk_in LIKE '%$dec1%' AND (username LIKE '%$dec2%' OR hospital LIKE '%$dec2%' OR department LIKE '%$dec2%'))
-        ORDER BY id DESC
-        ";
+            $query2 = "SELECT * FROM sale_check_in 
+            WHERE appove_status = '02' AND am_id = $emp_id AND (chk_in LIKE '%$dec1%')
+            ORDER BY id DESC
+            ";
+        }
+        elseif ($dec1=="" && !empty($dec2)) {
+        // code...
+            $query2 = "SELECT * FROM sale_check_in 
+            WHERE appove_status = '02' AND am_id = $emp_id AND (username LIKE '%$dec2%')
+            ORDER BY id DESC
+            ";
+        }
+        elseif ($dec2<>"" && $dec1<>"") {
+        // code...
+            $query2 = "SELECT * FROM sale_check_in 
+            WHERE appove_status = '02' AND am_id = $emp_id AND (chk_in LIKE '%$dec1%' AND (username LIKE '%$dec2%' OR hospital LIKE '%$dec2%' OR department LIKE '%$dec2%'))
+            ORDER BY id DESC
+            ";
+        }
+        elseif ($dec1 == NULL && $dec2 == NULL) {  
+            $query2 = "SELECT * FROM sale_check_in 
+            WHERE appove_status = '02' AND am_id = $emp_id
+            ";
+        }
     }
-    $stmt = $conn->query( $query );
-
-    echo "<ul id='nav'>
-    <li><a href='#'>รอรับทราบ(ลูกทีม)</a>
-    <section>
-    <p>";
-
-    echo "
-    <table class='table_h6' >
-    <tr>
-    <th>วันที่</th>
-    <th>โรงพยาบาล</th>
-    <th>แผนก</th>
-    <th>เข้าพบ</th>
-    <th>รายละเอียดเข้าพบ</th>
-    <th>sale</th>
-    <th>สถานะการตรวจของ AM</th>
-    <th></th>
-    </tr>
-    ";
-    while ($row2 = $stmt->fetch(PDO::FETCH_ASSOC)){
-      echo "<td> ". date("d-m-Y H:i:s", strtotime($row2['chk_in'])) ." </td>";
-      echo "<td> ".$row2['hospital']." </td>";
-      echo "<td> ".$row2['department']." </td>";
-      echo "<td> ".$row2['person']." </td>";
-      echo "<td> ".$row2['info']." </td>";
-      echo "<td> ".$row2['username']." </td>";
-      switch ($row2['appove_status']) {
-          case "1" : echo "<td> รอรับทราบ </td>";
-          break;
-          case "2" : echo "<td> รับทราบแล้ว </td>";
-          break;
-      }
-      echo "<td><a href=\"../SaleCheckIn/appove.php?ID=".iconv('TIS-620', 'UTF-8',$row2['id'])."\"> รับทราบ </a></td>";
-      echo "</tr>";
-  } 
-
-  echo "</table>
-  </p>
-  </section>
-  </li>
-  ";
-  /*-------รายการได้รับเลขแล้ว---------*/
-  if (!empty($dec1) && empty($dec2)) {
+    elseif ($am_team3 <> 0) {
+             // code...
+        if (!empty($dec1) && $dec2=="") {
         // code...
-    $query2 = "SELECT * FROM sale_check_in 
-    WHERE appove_status = '02' AND am_id = $emp_id AND (chk_in LIKE '%$dec1%')
-    ORDER BY id DESC
-    ";
-}
-elseif (!empty($dec2) && empty($dec1)) {
+            $query2 = "SELECT * FROM sale_check_in 
+            WHERE appove_status = '02' AND am_id_team3 = $am_team3 AND (chk_in LIKE '%$dec1%')
+            ORDER BY id DESC
+            ";
+        }
+        elseif ($dec1=="" && !empty($dec2)) {
         // code...
-    $query2 = "SELECT * FROM sale_check_in 
-    WHERE appove_status = '02' AND am_id = $emp_id AND (username LIKE '%$dec2%')
-    ORDER BY id DESC
-    ";
-}
-elseif (!empty($dec2) && !empty($dec1)) {
+            $query2 = "SELECT * FROM sale_check_in 
+            WHERE appove_status = '02' AND am_id_team3 = $am_team3 AND (username LIKE '%$dec2%')
+            ORDER BY id DESC
+            ";
+        }
+        elseif ($dec2<>"" && $dec1<>"") {
         // code...
-    $query2 = "SELECT * FROM sale_check_in 
-    WHERE appove_status = '02' AND am_id = $emp_id AND (chk_in LIKE '%$dec1%' AND (username LIKE '%$dec2%' OR hospital LIKE '%$dec2%' OR department LIKE '%$dec2%'))
-    ORDER BY id DESC
-    ";
-}
+            $query2 = "SELECT * FROM sale_check_in 
+            WHERE appove_status = '02' AND am_id_team3 = $am_team3 AND (chk_in LIKE '%$dec1%' AND (username LIKE '%$dec2%' OR hospital LIKE '%$dec2%' OR department LIKE '%$dec2%'))
+            ORDER BY id DESC
+            ";
+        }
+        elseif ($dec1 == NULL && $dec2 == NULL) {  
+            $query2 = "SELECT * FROM sale_check_in 
+            WHERE appove_status = '02' AND am_id_team3 = $am_team3
+            ";
+        }
+    }
 
 
 $stmt2 = $conn->query( $query2 );
@@ -371,6 +459,7 @@ echo "<li><a href='#'>รับทราบแล้ว(ลูกทีม)</a>
 <th>รายละเอียดเข้าพบ</th>
 <th>sale</th>
 <th>สถานะการตรวจของ AM</th>
+<th>comments</th>
 </tr>";
 
 while ($row2 = $stmt2->fetch(PDO::FETCH_ASSOC)){
@@ -387,6 +476,7 @@ while ($row2 = $stmt2->fetch(PDO::FETCH_ASSOC)){
       case "2" : echo "<td> รับทราบแล้ว </td>";
       break;
   }
+  echo "<td> ".$row2['comment_am']." </td>";
   echo "</tr>";
 } 
 
@@ -416,6 +506,11 @@ elseif (!empty($dec2) && !empty($dec1)) {
     ORDER BY id DESC
     ";
 }
+elseif ($dec1 == NULL && $dec2 == NULL) {  
+    $query2 = "SELECT * FROM sale_check_in 
+    WHERE appove_status = '01'  AND username = '".$_SESSION['USERNAME']."' 
+    ";
+}
 
 $stmt2 = $conn->query( $query2 );
 
@@ -431,6 +526,7 @@ echo "<li><a href='#'>รอรับทราบ(AM)</a>
 <th>รายละเอียดเข้าพบ</th>
 <th>sale</th>
 <th>สถานะการตรวจของ AM</th>
+<th>comments</th>
 </tr>";
 
 while ($row2 = $stmt2->fetch(PDO::FETCH_ASSOC)){
@@ -447,6 +543,7 @@ while ($row2 = $stmt2->fetch(PDO::FETCH_ASSOC)){
       case "2" : echo "<td> รับทราบแล้ว </td>";
       break;
   }
+  echo "<td> ".$row2['comment_am']." </td>";
   echo "</tr>";
 } 
 
@@ -476,42 +573,48 @@ elseif (!empty($dec2) && !empty($dec1)) {
     ORDER BY id DESC
     ";
 }
-$stmt2 = $conn->query( $query2 );
+elseif ($dec1 == NULL && $dec2 == NULL) {  
+    $query2 = "SELECT * FROM sale_check_in 
+    WHERE appove_status = '02'  AND username = '".$_SESSION['USERNAME']."' "
+    ;}
+    $stmt2 = $conn->query( $query2 );
 
-echo "<li><a href='#'>รับทราบแล้ว(AM)</a>
-<section>
-<p>
-<table class='table_h6' >
-<tr>
-<th>วันที่</th>
-<th>โรงพยาบาล</th>
-<th>แผนก</th>
-<th>เข้าพบ</th>
-<th>รายละเอียดเข้าพบ</th>
-<th>sale</th>
-<th>สถานะการตรวจของ AM</th>
-</tr>";
+    echo "<li><a href='#'>รับทราบแล้ว(AM)</a>
+    <section>
+    <p>
+    <table class='table_h6' >
+    <tr>
+    <th>วันที่</th>
+    <th>โรงพยาบาล</th>
+    <th>แผนก</th>
+    <th>เข้าพบ</th>
+    <th>รายละเอียดเข้าพบ</th>
+    <th>sale</th>
+    <th>สถานะการตรวจของ AM</th>
+    <th>comments</th>
+    </tr>";
 
-while ($row2 = $stmt2->fetch(PDO::FETCH_ASSOC)){
+    while ($row2 = $stmt2->fetch(PDO::FETCH_ASSOC)){
 
-    echo "<td> ". date("d-m-Y H:i:s", strtotime($row2['chk_in'])) ." </td>";
-    echo "<td> ".$row2['hospital']." </td>";
-    echo "<td> ".$row2['department']." </td>";
-    echo "<td> ".$row2['person']." </td>";
-    echo "<td> ".$row2['info']." </td>";
-    echo "<td> ".$row2['username']." </td>";
-    switch ($row2['appove_status']) {
-      case "1" : echo "<td> รอรับทราบ </td>";
-      break;
-      case "2" : echo "<td> รับทราบแล้ว </td>";
-      break;
-  }
-  echo "</tr>";
-} 
+        echo "<td> ". date("d-m-Y H:i:s", strtotime($row2['chk_in'])) ." </td>";
+        echo "<td> ".$row2['hospital']." </td>";
+        echo "<td> ".$row2['department']." </td>";
+        echo "<td> ".$row2['person']." </td>";
+        echo "<td> ".$row2['info']." </td>";
+        echo "<td> ".$row2['username']." </td>";
+        switch ($row2['appove_status']) {
+          case "1" : echo "<td> รอรับทราบ </td>";
+          break;
+          case "2" : echo "<td> รับทราบแล้ว </td>";
+          break;
+      }
+      echo "<td> ".$row2['comment_am']." </td>";
+      echo "</tr>";
+  } 
 
-echo "</table></p>
-</section>
-</li>";
+  echo "</table></p>
+  </section>
+  </li>";
 }
 ?>
 </div>
