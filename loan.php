@@ -110,7 +110,7 @@ while ($row = $result->fetch(PDO::FETCH_ASSOC)){ // Important line !!! Check sum
 
     if (!empty($row['docnum'])) {
 	 	// code...
-    	$query2 = "select * from comments where table_name = 'alltrans' and table_row = ".$row['docnum']."";
+    	$query2 = "select TOP 1 * from comments where table_name = 'alltrans' and table_row = ".$row['docnum']." order by ID DESC";
     	$result2 = $conn2->query( $query2 );
     	while ($row2 = $result2->fetch(PDO::FETCH_ASSOC)){
     		echo " <td> ".iconv('TIS-620', 'UTF-8',$row2['table_col_value'])." </td> ";
