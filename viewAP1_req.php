@@ -114,252 +114,268 @@ if(!isset($_SESSION["user"]) ){
 
                        <p id ='headr'>Preview set สินค้า</p>
                        <table class='table_in'>
-                        <tr>
-                          <form action='previewAP.php?ID=".$_GET['ID']."&PID=".$_GET['PID']."' method='POST'>
-                           <td id= itemNamet3>
-                            <input  id ='code1' style= width:95%; type='text' name ='itemset1' list='itemName3'class='itemName' placeholder='Preview set สินค้า'  autofocus>
-                            <datalist id = 'itemName3'> ";
+                       <tr>
+                       <form action='previewAP.php?ID=".$_GET['ID']."&PID=".$_GET['PID']."' method='POST'>
+                       <td id= itemNamet3>
+                       <input  id ='code1' style= width:95%; type='text' name ='itemset1' list='itemName3'class='itemName' placeholder='Preview set สินค้า'  autofocus>
+                       <datalist id = 'itemName3'> ";
                            // Using database connection file here
-                            $query9 = "SELECT id,groupname FROM groupcode WHERE grouptype = 3 order by groupname";
-                            $stmt9 = $conn2->query( $query9 );
+                       $query9 = "SELECT id,groupname FROM groupcode WHERE grouptype = 3 order by groupname";
+                       $stmt9 = $conn2->query( $query9 );
 
-                            while ($row9 = $stmt9->fetch(PDO::FETCH_ASSOC)){
-                              echo iconv('TIS-620', 'UTF-8',"<option data-id='$row9[id]' value = '$row9[id]. $row9[groupname]'> </option>n)");
-                            }
-                            $stmt = null;
-                            $stmt9 = null;
-                            
-                           echo "</td>
-                          <td><input class='btn_d' type='submit' value='Preview'></td>
-                        </tr>
+                       while ($row9 = $stmt9->fetch(PDO::FETCH_ASSOC)){
+                        echo iconv('TIS-620', 'UTF-8',"<option data-id='$row9[id]' value = '$row9[id]. $row9[groupname]'> </option>n)");
+                      }
+                      $stmt = null;
+                      $stmt9 = null;
+
+                      echo "</td>
+                      <td><input class='btn_d' type='submit' value='Preview'></td>
+                      </tr>
                       </table>
-                    </form> ";
+                      </form> ";
 
-                    if(!empty($_GET['ITEM'])){
-                      echo "<form action='inset_req5.php?ID=".$_GET['ID']."&PID=".$_GET['PID']."&ITEM=".$_GET['ITEM']."' method='POST' >";
-                      echo " <div class='wrapper_preview'>";
+                      if(!empty($_GET['ITEM'])){
+                        echo "<form action='inset_req5.php?ID=".$_GET['ID']."&PID=".$_GET['PID']."&ITEM=".$_GET['ITEM']."' method='POST' >";
+                        echo " <div class='wrapper_preview'>";
 
                             // Using database connection file here
-                            $query10 = "SELECT  groupcodeitem.*, groupcode.groupname,alloitm.ItemName
-                            FROM ((groupcodeitem 
-                            left join groupcode on  groupcodeitem.groupcode_id_fk = groupcode.id)
-                            LEFT JOIN alloitm ON groupcodeitem.ItemCode = alloitm.ItemCode)
-                            where groupcodeitem.groupcode_id_fk = ".$_GET['ITEM']." " ;
-                            $stmt10 = $conn2->query( $query10 );
+                        $query10 = "SELECT  groupcodeitem.*, groupcode.groupname,alloitm.ItemName
+                        FROM ((groupcodeitem 
+                          left join groupcode on  groupcodeitem.groupcode_id_fk = groupcode.id)
+                        LEFT JOIN alloitm ON groupcodeitem.ItemCode = alloitm.ItemCode)
+                        where groupcodeitem.groupcode_id_fk = ".$_GET['ITEM']." " ;
+                        $stmt10 = $conn2->query( $query10 );
 
-                            echo "<table class='table_in1'>
-                            <tr>
-                            <th>SET</th>
-                            <th>Item code</th>
-                            <th>Product</th>
-                            </tr>
-                            ";
-                            while ($row10 = $stmt10->fetch(PDO::FETCH_ASSOC)){
-                              echo iconv('TIS-620', 'UTF-8',"<td style= width:12%;>$row10[groupname] </td>");
-                              echo "<td style= width:23%;>$row10[itemcode] </td>";
-                              echo "<td>". iconv('TIS-620', 'UTF-8',$row10['ItemName']) ."</td>";
-                              echo "</tr>";
-                            }
-                            echo "</table>";
-                            echo "</div>";
-                            echo "<input class='btn_d2' type='submit' value='เพิ่ม set'>";
-                          }
+                        echo "<table class='table_in1'>
+                        <tr>
+                        <th>SET</th>
+                        <th>Item code</th>
+                        <th>Product</th>
+                        </tr>
+                        ";
+                        while ($row10 = $stmt10->fetch(PDO::FETCH_ASSOC)){
+                          echo iconv('TIS-620', 'UTF-8',"<td style= width:12%;>$row10[groupname] </td>");
+                          echo "<td style= width:23%;>$row10[itemcode] </td>";
+                          echo "<td>". iconv('TIS-620', 'UTF-8',$row10['ItemName']) ."</td>";
+                          echo "</tr>";
+                        }
+                        echo "</table>";
+                        echo "</div>";
+                        echo "<input class='btn_d2' type='submit' value='เพิ่ม set'>";
+                      }
 
-                          $stmt10 = null;
-                          
+                      $stmt10 = null;
 
-                        echo "</form>
 
-                        <table class='table_in'>
-                          <tr>
-                            <form action='inset_reqAP3.php?ID=".$_GET['ID']."&PID=".$_GET['PID']."' method='POST'>
-                              <p id ='headr'>เพิ่ม-ลด สินค้า</p>
+                      echo "</form>
 
-                              
-                            </td>
+                      <table class='table_in'>
+                      <tr>
+                      <form action='inset_reqAP3.php?ID=".$_GET['ID']."&PID=".$_GET['PID']."' method='POST'>
+                      <p id ='headr'>เพิ่ม-ลด สินค้า</p>
 
-                            <td id= itemNamet>
-                              <input  style= width:95%; type='text' name ='item1' list='itemName'class='itemName' placeholder='ชื่อสินค้า' >
-                              <datalist id = 'itemName'>
-                                <option type='text'>สินค้าไม่มี item code</option>n ";
+
+                      </td>
+
+                      <td id= itemNamet>
+                      <input  style= width:95%; type='text' name ='item1' list='itemName'class='itemName' placeholder='ชื่อสินค้า' >
+                      <datalist id = 'itemName'>
+                      <option type='text'>สินค้าไม่มี item code</option>n ";
                                 // Using database connection file here
-                            $query = "SELECT u_brand,itemName,itemCode FROM alloitm WHERE u_brand IS NOT NULL and u_brand <> ' ' and itemCode NOT LIKE 'DEM%' and itemCode NOT LIKE 'AS%' order by u_brand " ;
-                            $stmt = $conn->query( $query );
+                      $query = "SELECT u_brand,itemName,itemCode FROM alloitm WHERE u_brand IS NOT NULL and u_brand <> ' ' and itemCode NOT LIKE 'DEM%' and itemCode NOT LIKE 'AS%' order by u_brand " ;
+                      $stmt = $conn->query( $query );
 
-                            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)){
-                              echo iconv('TIS-620', 'UTF-8',"<option value = '$row[itemCode]'> || $row[itemName]  </option>n)");
-                            }
-                          echo "</datalist>
-                        </td>
-                        
-                        <td><input type='number' name ='item2' placeholder='จำนวน'  style= width:95%; ></input></td>
+                      while ($row = $stmt->fetch(PDO::FETCH_ASSOC)){
+                        echo iconv('TIS-620', 'UTF-8',"<option value = '$row[itemCode]'> || $row[itemName]  </option>n)");
+                      }
+                      echo "</datalist>
+                      </td>
 
-                        <td>
-                          <input  style= width:95%; type='number' name ='item3' class='prc' placeholder='ราคา'>
-                        </td>
+                      <td><input type='number' name ='item2' placeholder='จำนวน'  style= width:95%; ></input></td>
 
-                        <td><input class='btn_d' type='submit' value='เพิ่ม'></td>
+                      <td>
+                      <input  style= width:95%; type='number' name ='item3' class='prc' placeholder='ราคา'>
+                      </td>
+
+                      <td><input class='btn_d' type='submit' value='เพิ่ม'></td>
 
 
 
                       </table>
-                    </form>
-                    <p id ='headr'>สรุปและตรวจสอบรายการ</p> ";
+                      </form>
+                      <p id ='headr'>สรุปและตรวจสอบรายการ</p> ";
                     // Using database connection file here
-                        $query2 = "select TOP 1 *,statusReq.sid,statusReq.sinfo,employee2.ID,employee2.name,employee2.lastname
-                        FROM (((projects LEFT JOIN statusReq 
-                        ON projects.statusReq = statusReq.sid)
-                        LEFT JOIN employee2 
-                        ON projects.employee_id_fk = employee2.id)
-                        LEFT JOIN BplusData
-                        ON projects.client_id_fk = BplusData.ID)
-                        where projects.ID = ".$_GET['ID']."
-                        ";
-                        $stmt2 = $conn->query( $query2 );
-                        
+                      $query2 = "select TOP 1 *,statusReq.sid,statusReq.sinfo,employee2.ID,employee2.name,employee2.lastname
+                      FROM (((projects LEFT JOIN statusReq 
+                      ON projects.statusReq = statusReq.sid)
+                      LEFT JOIN employee2 
+                      ON projects.employee_id_fk = employee2.id)
+                      LEFT JOIN BplusData
+                      ON projects.client_id_fk = BplusData.ID)
+                      where projects.ID = ".$_GET['ID']."
+                      ";
+                      $stmt2 = $conn->query( $query2 );
 
-                        $query = "SELECT req.ID,projects.ID as pid,projects.project_code1,req.unitnum ,alloitm.ItemName,alloitm.itemCode, req.unitnum, req.price ,req.description,req.itemName as itemName1
-                        FROM ((req 
+
+                      $query = "SELECT req.ID,projects.ID as pid,projects.project_code1,req.unitnum ,alloitm.ItemName,alloitm.itemCode, req.unitnum, req.price ,req.description,req.itemName as itemName1
+                      FROM ((req 
                         INNER JOIN projects ON req.project_id_fk = projects.ID) 
-                        LEFT JOIN alloitm ON req.ItemCode = alloitm.ItemCode)
-                        WHERE req.project_id_fk = ".$_GET['ID']." AND req.unitnum IS NOT NULL  
-                        order by req.price DESC
-                        ";
-                        $stmt = $conn->query( $query );
-                        
-                        $query3 = "SELECT  req.project_id_fk ,sum(req.price) as price,((price*100)/107) as pitem,(price-pitem) as vat
-                        FROM req 
-                        WHERE req.project_id_fk = ".$_GET['ID']." group by req.project_id_fk 
-                        ";
-                        $stmt3 = $conn->query( $query3 );
+                      LEFT JOIN alloitm ON req.ItemCode = alloitm.ItemCode)
+                      WHERE req.project_id_fk = ".$_GET['ID']." AND req.unitnum IS NOT NULL  
+                      order by req.price DESC
+                      ";
+                      $stmt = $conn->query( $query );
 
-                        if( $conn->query( $query ) ){
-                          if($_GET['ID']){
-                            while ($row2 = $stmt2->fetch(PDO::FETCH_ASSOC)){
-                              echo "<h2 id='name-p' > ชื่องบ : ". iconv('TIS-620', 'UTF-8',$row2['name_p']) ." </h2>
-                              <p> Status REQ. : ". iconv('TIS-620', 'UTF-8',$row2['sinfo']) ." </p>
-                              <p> สถานที่ส่งมอบ : ". iconv('TIS-620', 'UTF-8',$row2['location']) ."</p>
-                              <p> วันที่ส่งมอบ :  ". date("d / m / Y", strtotime($row2['trans_date'])) ."</p>
-                              ";
-                              
-                              echo "<table class='table_h' id='p_info'>
-                              
-                              <tr class='t_head'>
-                              <td><h2> ".$row2['project_code1']."</h2> <br><br></td>
-                              <td><h2> ".iconv('TIS-620', 'UTF-8',$row2['name_p'])."</h2> <br><br></td>
-                              <td> <br>". iconv('TIS-620', 'UTF-8',$row2['AR_NAME']) ." <br><br> กำหนดส่งมอบ ". $row2['delidate'] ."  ". "หรือภายใน" ."   ". $row2['delitime'] ." ". "วัน" ." <br><br></td>
+                      $query3 = "SELECT  req.project_id_fk ,sum(req.price) as price,((price*100)/107) as pitem,(price-pitem) as vat
+                      FROM req 
+                      WHERE req.project_id_fk = ".$_GET['ID']." group by req.project_id_fk 
+                      ";
+                      $stmt3 = $conn->query( $query3 );
 
-                              <td> ราคาที่ได้งาน <br>". number_format($row2['pro_value']) ." บาท</td>
+                      if( $conn->query( $query ) ){
+                        if($_GET['ID']){
+                          while ($row2 = $stmt2->fetch(PDO::FETCH_ASSOC)){
+                            echo "<h2 id='name-p' > ชื่องบ : ". iconv('TIS-620', 'UTF-8',$row2['name_p']) ." </h2>
+                            <p> Status REQ. : ". iconv('TIS-620', 'UTF-8',$row2['sinfo']) ." </p>
+                            <p> สถานที่ส่งมอบ : ". iconv('TIS-620', 'UTF-8',$row2['location']) ."</p>
+                            <p> วันที่ส่งมอบ :  ". date("d / m / Y", strtotime($row2['trans_date'])) ."</p>
+                            ";
 
-                              <td> เอกสารประกวด/สอบราคาซื้อ <br>". $row2['tender_code'] ." </td>
+                            echo "<table class='table_h' id='p_info'>
 
-                              <td> ผู้รับผิดชอบ <br>". iconv('TIS-620', 'UTF-8',$row2['name']) ." ". iconv('TIS-620', 'UTF-8',$row2['lastname']) ." </td>
-                              <td> สถานที่และเวลาส่งมอบ( sale)<br>". iconv('TIS-620', 'UTF-8',$row2['location']) ." <br> วันที่ ". date("d / m / Y", strtotime($row2['trans_date'])) ." </td>
-                              </tr>
+                            <tr class='t_head'>
+                            <td><h2> ".$row2['project_code1']."</h2> <br><br></td>
+                            <td><h2> ".iconv('TIS-620', 'UTF-8',$row2['name_p'])."</h2> <br><br></td>
+                            <td> <br>". iconv('TIS-620', 'UTF-8',$row2['AR_NAME']) ." <br><br> กำหนดส่งมอบ ". $row2['delidate'] ."  ". "หรือภายใน" ."   ". $row2['delitime'] ." ". "วัน" ." <br><br></td>
 
-                              <tr>
-                              <th>รหัสโครงการ</th>
-                              <th>Code สินค้า</th>
-                              <th>รายการ Requisition </th>
-                              <th>จำนวน</th>
-                              <th>ราคา:หน่วย</th>
-                              <th></th>
-                              <th></th>
-                              </tr>";
+                            <td> ราคาที่ได้งาน <br>". number_format($row2['pro_value']) ." บาท</td>
 
-                              while ($row = $stmt->fetch(PDO::FETCH_ASSOC)){
-                                echo " <form action='update_req3AP.php?ID=".$row['ID']."&PPID=".$row['pid']."&PID=". $_GET['PID']."&' method='POST'>";
+                            <td> เอกสารประกวด/สอบราคาซื้อ <br>". $row2['tender_code'] ." </td>
 
-                                
-                                echo "<td style= width:7%;>". iconv('TIS-620', 'UTF-8',$row['project_code1']) ."</td>";
-                                echo "<td style= width:16%;>". $row['itemCode'] ."</td>";
-                                echo "<td> <input  id='itemname1' type='text' name ='item4' value ='". iconv('TIS-620', 'UTF-8',$row['ItemName']) ." ' maxlength='255' >". iconv('TIS-620', 'UTF-8',$row['itemName1']) ." </td>";
+                            <td> ผู้รับผิดชอบ <br>". iconv('TIS-620', 'UTF-8',$row2['name']) ." ". iconv('TIS-620', 'UTF-8',$row2['lastname']) ." </td>
+                            <td> สถานที่และเวลาส่งมอบ( sale)<br>". iconv('TIS-620', 'UTF-8',$row2['location']) ." <br> วันที่ ". date("d / m / Y", strtotime($row2['trans_date'])) ." </td>
+                            </tr>
 
-                                echo "<td style= width:5%; ><input  id='itemname' type='text' name ='item5' value ='". number_format($row['unitnum']) ."'>". number_format($row['unitnum']) ."</td>";
+                            <tr>
+                            <th>รหัสโครงการ</th>
+                            <th>Code สินค้า</th>
+                            <th>รายการ Requisition </th>
+                            <th>จำนวน</th>
+                            <th>ราคา:หน่วย</th>
+                            <th></th>
+                            <th></th>
+                            <th>อย.</th>
+                            </tr>";
 
-                                echo "<td id='itemname2' style= width:10%;><input  id='itemname' type='text' name ='item6' value =''><br>". number_format($row['price']) ."</td>";
+                            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)){
+                              echo " <form action='update_req3AP.php?ID=".$row['ID']."&PPID=".$row['pid']."&PID=". $_GET['PID']."&' method='POST'>";
 
-                                echo "<td style= width:5%;><input type='submit' value='บันทึก'></td>";
 
-                                echo "<td style= width:5%;><a href=\"del_item2.php?ID=".$row['ID']."&PPID=".$row['pid']."&PID=". $_GET['PID']." \"> ลบ </td>";
-                                echo "</tr>";
-                                echo "</form>";
-                              }
-                              while ($row3 = $stmt3->fetch(PDO::FETCH_ASSOC)){
-                               echo "
-                               <br>
-                               <tr>
-                               <th>ราคา</th>
-                               <td>". number_format($row3['pitem'],2) ."</td>
-                               </tr>
-                               <tr>
-                               <th>VAT 7%</th>
-                               <td>". number_format($row3['vat'],2) ."</td>
-                               </tr>
-                               <tr>
-                               <th>ราคาสุทธิ</th>
-                               <td>". number_format($row3['price'],2) ."</td>
-                               </tr>
-                               
-                               <tr class='t_head'>
-                               <td> เอกสารส่งมอบ : ".iconv('TIS-620', 'UTF-8',$row2['h_sheet'])." <br><br></td>
-                               <td> หมายเหตุ : ".iconv('TIS-620', 'UTF-8',$row2['info'])."<br><br></td>
-                               </tr>
-                               
-                               ";}}
-                               
-                               echo "</table>";
-                               
-                               echo "<div class = 'w-uplist'> <h2>เอกสารประกอบงานขาย</h2>";
-                               echo "<div class = 'uplist'>";
-                               $path_parts = "uploads/". $_GET["PID"] ." ";
-                               if(!is_dir("uploads/". $_GET["PID"] ."/")){
+                              echo "<td style= width:7%;>". iconv('TIS-620', 'UTF-8',$row['project_code1']) ."</td>";
+                              echo "<td style= width:16%;>". $row['itemCode'] ."</td>";
+                              echo "<td> <input  id='itemname1' type='text' name ='item4' value ='". iconv('TIS-620', 'UTF-8',$row['ItemName']) ." ' maxlength='255' >". iconv('TIS-620', 'UTF-8',$row['itemName1']) ." </td>";
 
-                               }
-                               elseif(is_dir("uploads/". $_GET["PID"] ."/")){
-                                if ($handle = opendir($path_parts)) {
-                                  while (false !== ($entry = readdir($handle))) {
-                                    if ($entry != "." && $entry != "..") {
-                                      echo "<a href= '../uploads/". $_GET["PID"] ."/$entry' target='_blank'>- $entry<br></a>";
-                                    }
-                                  }
-                                  closedir($handle);
+                              echo "<td style= width:5%; ><input  id='itemname' type='text' name ='item5' value ='". number_format($row['unitnum']) ."'>". number_format($row['unitnum']) ."</td>";
+
+                              echo "<td id='itemname2' style= width:10%;><input  id='itemname' type='text' name ='item6' value =''><br>". number_format($row['price']) ."</td>";
+
+                              echo "<td style= width:5%;><input type='submit' value='บันทึก'></td>";
+
+                              echo "<td style= width:5%;><a href=\"del_item2.php?ID=".$row['ID']."&PPID=".$row['pid']."&PID=". $_GET['PID']." \"> ลบ </td>";
+
+                              $itemFDA = $row['itemCode'];
+                              $queryFDA = "SELECT * FROM ALL_FDA_VIEW WHERE itemCode = '$itemFDA' ";
+                              $stmtFDA = $conn3->query( $queryFDA );
+                              while ($rowFDA = $stmtFDA->fetch(PDO::FETCH_ASSOC)){
+                                switch ($rowFDA['FDA_STATUS']) {
+                                  case ("HAVE      ") : echo "<td style= width:4%;> มี <br> (".$rowFDA['expiration_status'].") </td>";
+                                  break;
+                                  case ("NOT       ") : echo "<td style= width:4%; class = 'red'> สินค้าเลิกผลิต </td>";
+                                  break;
+                                  case $rowFDA['FDA_STATUS'] === NULL : echo "<td style= width:4%; class = 'red'> สินค้าเลิกผลิต </td>";
+                                  break;
                                 }
                               }
-                              echo "</div>";
-                              echo "</div>";
 
-                              echo "</div><br>";
-                              echo "<a class='btn-a' ID='create_excel' >Export Excel</a>";
-                              
+                              echo "</tr>";
+                              echo "</form>";
+                            }
+                            while ($row3 = $stmt3->fetch(PDO::FETCH_ASSOC)){
+                             echo "
+                             <br>
+                             <tr>
+                             <th>ราคา</th>
+                             <td>". number_format($row3['pitem'],2) ."</td>
+                             </tr>
+                             <tr>
+                             <th>VAT 7%</th>
+                             <td>". number_format($row3['vat'],2) ."</td>
+                             </tr>
+                             <tr>
+                             <th>ราคาสุทธิ</th>
+                             <td>". number_format($row3['price'],2) ."</td>
+                             </tr>
+
+                             <tr class='t_head'>
+                             <td> เอกสารส่งมอบ : ".iconv('TIS-620', 'UTF-8',$row2['h_sheet'])." <br><br></td>
+                             <td> หมายเหตุ : ".iconv('TIS-620', 'UTF-8',$row2['info'])."<br><br></td>
+                             </tr>
+
+                             ";}}
+
+                             echo "</table>";
+
+                             echo "<div class = 'w-uplist'> <h2>เอกสารประกอบงานขาย</h2>";
+                             echo "<div class = 'uplist'>";
+                             $path_parts = "uploads/". $_GET["PID"] ." ";
+                             if(!is_dir("uploads/". $_GET["PID"] ."/")){
+
+                             }
+                             elseif(is_dir("uploads/". $_GET["PID"] ."/")){
+                              if ($handle = opendir($path_parts)) {
+                                while (false !== ($entry = readdir($handle))) {
+                                  if ($entry != "." && $entry != "..") {
+                                    echo "<a href= '../uploads/". $_GET["PID"] ."/$entry' target='_blank'>- $entry<br></a>";
+                                  }
+                                }
+                                closedir($handle);
+                              }
+                            }
+                            echo "</div>";
+                            echo "</div>";
+
+                            echo "</div><br>";
+                            echo "<a class='btn-a' ID='create_excel' >Export Excel</a>";
 
 
-                             
-                              echo "<br><br><br><br><br><br><br>"; 
-                           } 
-                         }
-
-                         $stmt = null;
-                         $stmt2 = null;
-                         $conn = null;
-                         ?>
 
 
-                       </div>
+                            echo "<br><br><br><br><br><br><br>"; 
+                          } 
+                        }
 
-                     </div>
-                     <div class="footer">ลิขสิทธิ์ถูกต้อง © 2021 บริษัท เซนต์เมด จำกัด (มหาชน)</div>
-                     <script> 
+                        $stmt = null;
+                        $stmt2 = null;
+                        $conn = null;
+                        ?>
 
-                       $(document).ready(function () {
-                        $('#create_excel').click(function(){
-                          $("#p_info").table2excel({ 
-                            filename: "p_info.xls" 
-                          });   
-                        }); 
+
+                      </div>
+
+                    </div>
+                    <div class="footer">ลิขสิทธิ์ถูกต้อง © 2021 บริษัท เซนต์เมด จำกัด (มหาชน)</div>
+                    <script> 
+
+                     $(document).ready(function () {
+                      $('#create_excel').click(function(){
+                        $("#p_info").table2excel({ 
+                          filename: "p_info.xls" 
+                        });   
                       }); 
+                    }); 
 
-                    </script> 
-                  </body>
-                  </html> 
+                  </script> 
+                </body>
+                </html> 
 

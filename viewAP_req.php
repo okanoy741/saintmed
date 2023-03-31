@@ -265,6 +265,7 @@ if(!isset($_SESSION["user"]) ){
                               <th>ราคา:หน่วย</th>
                               <th></th>
                               <th></th>
+                              <th>อย.</th>
                               </tr>";
 
                               while ($row = $stmt->fetch(PDO::FETCH_ASSOC)){
@@ -282,6 +283,20 @@ if(!isset($_SESSION["user"]) ){
                                 echo "<td style= width:5%;><input type='submit' value='บันทึก'></td>";
 
                                 echo "<td style= width:5%;><a href=\"del_item2.php?ID=".$row['ID']."&PPID=".$row['pid']."&PID=". $_GET['PID']." \"> ลบ </td>";
+
+                                $itemFDA = $row['itemCode'];
+                              $queryFDA = "SELECT * FROM ALL_FDA_VIEW WHERE itemCode = '$itemFDA' ";
+                              $stmtFDA = $conn3->query( $queryFDA );
+                              while ($rowFDA = $stmtFDA->fetch(PDO::FETCH_ASSOC)){
+                                switch ($rowFDA['FDA_STATUS']) {
+                                  case ("HAVE      ") : echo "<td style= width:4%;> มี <br> (".$rowFDA['expiration_status'].") </td>";
+                                  break;
+                                  case ("NOT       ") : echo "<td style= width:4%; class = 'red'> สินค้าเลิกผลิต </td>";
+                                  break;
+                                  case $rowFDA['FDA_STATUS'] === NULL : echo "<td style= width:4%; class = 'red'> สินค้าเลิกผลิต </td>";
+                                  break;
+                                }
+                              }
                                 echo "</tr>";
                                 echo "</form>";
                               }

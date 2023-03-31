@@ -194,7 +194,7 @@ include "head.php";
                               $stmtFDA = $conn3->query( $queryFDA );
                               while ($rowFDA = $stmtFDA->fetch(PDO::FETCH_ASSOC)){
                                 switch ($rowFDA['FDA_STATUS']) {
-                                  case ("HAVE      ") : echo "<td style= width:4%;> มี </td>";
+                                  case ("HAVE      ") : echo "<td style= width:4%;> มี <br> (".$rowFDA['expiration_status'].") </td>";
                                   break;
                                   case ("NOT       ") : echo "<td style= width:4%; class = 'red'> สินค้าเลิกผลิต </td>";
                                   break;
