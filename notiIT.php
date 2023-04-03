@@ -21,9 +21,9 @@
 	
 	if ($gb>=1.70 && $gb<=1.90)
 	{				
-					$sMessage = "Warning !!!! ขนาดไฟล์ B2 ณ เวลา  $date \n***\n $mboutput $gboutput \n***\n !!! PLEASE COMPACT !!! \n \n***INTERNAL LINK*** เริ่มการนำเข้ามูลเปิดหน้า http://192.168.0.7/datainput.asp \n ***EXTERNAL LINK***  http://saintmed.dyndns.biz/datainput.asp $date \n ตรวจสอบการทำงานได้ที่ \n http://saintmed.dyndns.biz/admin/dumplog.asp";
+					$sMessage = "Phase 1 \n Warning !!!! ขนาดไฟล์ B2 ณ เวลา  $date \n***\n $mboutput $gboutput \n***\n !!! PLEASE COMPACT !!! \n \n***INTERNAL LINK*** เริ่มการนำเข้ามูลเปิดหน้า http://192.168.0.7/datainput.asp \n ***EXTERNAL LINK***  http://saintmed.dyndns.biz/datainput.asp $date \n ตรวจสอบการทำงานได้ที่ \n http://saintmed.dyndns.biz/admin/dumplog.asp";
 					
-					$sMessage2 = "Warning !!!! ขนาดไฟล์ B2 ณ เวลา  $date \n***\n $mboutput $gboutput \n***\n !!! PLEASE COMPACT !!!";
+					$sMessage2 = "Phase 1 \n Warning !!!! ขนาดไฟล์ B2 ณ เวลา  $date \n***\n $mboutput $gboutput \n***\n !!! PLEASE COMPACT !!!";
 					
 					$chOne = curl_init(); 
 					curl_setopt( $chOne, CURLOPT_URL, "https://notify-api.line.me/api/notify"); 
@@ -102,8 +102,8 @@
 						/*$fs= filesize($myfile);
 						$mb = $fs*0.000001;
 						$gb = $mb*0.001; */
-						$sMessage = "DATAINPUT NO PROCESS Alert !!!! ขนาดไฟล์ B2 ณ เวลา  $date \n***\n $mboutput $gboutput \n***\n !!! COMPACT NOW !!! ";
-						$sMessage2 = "DATAINPUT NO PROCESS Alert !!!! \n ขนาดไฟล์ B2 ณ เวลา  $date \n***\n $mboutput $gboutput \n***\n !!! COMPACT NOW  !!!";
+						$sMessage = "Phase 1 \n DATAINPUT NO PROCESS Alert !!!! ขนาดไฟล์ B2 ณ เวลา  $date \n***\n $mboutput $gboutput \n***\n !!! COMPACT NOW !!! ";
+						$sMessage2 = "Phase 1 \n DATAINPUT NO PROCESS Alert !!!! \n ขนาดไฟล์ B2 ณ เวลา  $date \n***\n $mboutput $gboutput \n***\n !!! COMPACT NOW  !!!";
 						$chOne = curl_init(); 
 						curl_setopt( $chOne, CURLOPT_URL, "https://notify-api.line.me/api/notify"); 
 						curl_setopt( $chOne, CURLOPT_SSL_VERIFYHOST, 0); 
@@ -245,7 +245,7 @@
 	}
 	else
 	{
-							$sMessage = "ขนาดไฟล์ B2 ณ เวลา  $date \n***\n $mboutput $gboutput \n \n***INTERNAL LINK*** เริ่มการนำเข้ามูลเปิดหน้า http://192.168.0.7/datainput.asp \n ***EXTERNAL LINK***  http://saintmed.dyndns.biz/datainput.asp $date \n ตรวจสอบการทำงานได้ที่ \n http://saintmed.dyndns.biz/admin/dumplog.asp";
+							$sMessage = "Phase 1 \n ขนาดไฟล์ B2 ณ เวลา  $date \n***\n $mboutput $gboutput \n \n***INTERNAL LINK*** เริ่มการนำเข้ามูลเปิดหน้า http://192.168.0.7/datainput.asp \n ***EXTERNAL LINK***  http://saintmed.dyndns.biz/datainput.asp $date \n ตรวจสอบการทำงานได้ที่ \n http://saintmed.dyndns.biz/admin/dumplog.asp";
 							
 								
 							$chOne = curl_init(); 

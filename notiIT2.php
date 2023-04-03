@@ -27,7 +27,7 @@ use PHPMailer\PHPMailer\PHPMailer;
 	$gboutput =  " ||| ".number_format($gb,2,'.','')." GB";
 	if ($gb>=1.70 && $gb<=1.90)
 	{				
-					$sMessage = "Success Warning !!!!  \n Filesize after process ***\n $mboutput $gboutput \n***\n !!! PLEASE COMPACT !!! \n ";
+					$sMessage = "Phase 1 Success Warning !!!!  \n Filesize after process ***\n $mboutput $gboutput \n***\n !!! PLEASE COMPACT !!! \n ";
 					$sMessage2 = "Warning !!!! ขนาดไฟล์ B2 ณ เวลา  $date \n***\n $mboutput $gboutput \n***\n !!! PLEASE COMPACT !!!";
 					$chOne = curl_init(); 
 					curl_setopt( $chOne, CURLOPT_URL, "https://notify-api.line.me/api/notify"); 
@@ -102,8 +102,8 @@ use PHPMailer\PHPMailer\PHPMailer;
 	else if ($gb>=1.90)
 	{
 				
-					$sMessage = "Success Alert !!!! \n Filesize after process ***\n $mboutput $gboutput \n***\n !!! COMPACT NOW !!! \n ";
-					$sMessage2 = "ALERT !!!! ขนาดไฟล์ B2 ณ เวลา  $date \n***\n $mboutput $gboutput \n***\n !!! COMPACT NOW !!!";
+					$sMessage = "Phase 1 Success Alert !!!! \n Filesize after process ***\n $mboutput $gboutput \n***\n !!! COMPACT NOW !!! \n ";
+					$sMessage2 = "Phase 1 ALERT !!!! ขนาดไฟล์ B2 ณ เวลา  $date \n***\n $mboutput $gboutput \n***\n !!! COMPACT NOW !!!";
 					$chOne = curl_init(); 
 					curl_setopt( $chOne, CURLOPT_URL, "https://notify-api.line.me/api/notify"); 
 					curl_setopt( $chOne, CURLOPT_SSL_VERIFYHOST, 0); 
@@ -182,7 +182,7 @@ use PHPMailer\PHPMailer\PHPMailer;
 				$round_loop = 1;
 				while ($gb>=1.90)
 				{
-					$sMessage = "เตือนครั้งที่ $round_loop \n Success Alert !!!! \n Filesize after process ***\n $mboutput $gboutput \n***\n !!! COMPACT NOW !!! \n ";
+					$sMessage = "Phase 1  เตือนครั้งที่ $round_loop \n Success Alert !!!! \n Filesize after process ***\n $mboutput $gboutput \n***\n !!! COMPACT NOW !!! \n ";
 					$sMessage2 = "ALERT !!!! ขนาดไฟล์ B2 ณ เวลา  $date \n***\n $mboutput $gboutput \n***\n !!! COMPACT NOW !!!";
 					$chOne = curl_init(); 
 					curl_setopt( $chOne, CURLOPT_URL, "https://notify-api.line.me/api/notify"); 
@@ -215,7 +215,7 @@ use PHPMailer\PHPMailer\PHPMailer;
 	}
 	else
 	{
-							$sMessage = "Success Process \n Filesize after process ***\n $mboutput $gboutput \n***\n !!! PLEASE BEWARE of B2 files exceeding 1.9 GB. !!! \n ";
+							$sMessage = " Phase 1 Success Process \n Filesize after process ***\n $mboutput $gboutput \n***\n !!! PLEASE BEWARE of B2 files exceeding 1.9 GB. !!! \n ";
 							$chOne = curl_init(); 
 							curl_setopt( $chOne, CURLOPT_URL, "https://notify-api.line.me/api/notify"); 
 							curl_setopt( $chOne, CURLOPT_SSL_VERIFYHOST, 0); 
