@@ -56,6 +56,7 @@
 		<th>towhscode</th>
 		<th>usercomplete</th>
 		<th>whsname</th>
+		<th>sign_complete</th>
 		<th>SN No.</th>
 		<th>status</th>
 		<th>sale comment</th>
@@ -107,6 +108,7 @@ while ($row = $result->fetch(PDO::FETCH_ASSOC)){ // Important line !!! Check sum
     	echo "<td>...</td>";
     	break;
     }
+
 
     if (!empty($row['docnum'])) {
 	 	// code...

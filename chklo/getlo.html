@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Get Lat Long Example</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body>
+	<button onclick="getLocation()">Get Location</button>
+
+	<script>
+	function getLocation() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showPosition, showError);
+    } else {
+        alert("Geolocation is not supported by this browser.");
+    }
+}
+
+function showError(error) {
+    switch (error.code) {
+        case error.PERMISSION_DENIED:
+            alert("User denied the request for Geolocation.");
+            break;
+        case error.POSITION_UNAVAILABLE:
+            alert("Location information is unavailable.");
+            break;
+        case error.TIMEOUT:
+            alert("The request to get user location timed out.");
+            break;
+        case error.UNKNOWN_ERROR:
+            alert("An unknown error occurred.");
+            break;
+    }
+}
+
+		function showPosition(position) {
+			var lat = position.coords.latitude;
+			var long = position.coords.longitude;
+
+			// เปลี่ยนหน้าเว็บไปยังหน้า PHP โดยส่งค่า lat long ด้วย GET
+			window.location.href = "chklo.php?lat=" + lat + "&long=" + long;
+		}
+	</script>
+</body>
+</html>

@@ -65,7 +65,14 @@ include "head.php";
     
     if (empty($_GET)) {
         // code...
-        if ($am_team3 == 0) {
+        if ($emp_id == 420) {
+             // code...
+            $query = "SELECT * FROM sale_check_in 
+            WHERE appove_status = '01' AND ((username LIKE '%supharawee%') or (username LIKE '%navaporn%') or (username LIKE '%tonthip.p%'))
+            ORDER BY id DESC
+            ";
+        }
+        elseif ($am_team3 == 0) {
             // code...
             $query = "SELECT * FROM sale_check_in 
             WHERE appove_status = '01' AND (am_id = $emp_id ) 
@@ -79,6 +86,8 @@ include "head.php";
             ORDER BY id DESC
             ";
         }
+
+
         
 
         $stmt = $conn->query( $query );
@@ -129,8 +138,15 @@ include "head.php";
       </li>
       ";
       /*-------รายการได้รับเลขแล้ว---------*/
+      if ($emp_id == 420) {
+             // code...
+        $query2 = "SELECT * FROM sale_check_in 
+        WHERE appove_status = '02' AND ((username LIKE '%supharawee%') or (username LIKE '%navaporn%') or (username LIKE '%tonthip.p%'))
+        ORDER BY id DESC
+        ";
+    }
 
-      if ($am_team3 == 0) {
+    elseif ($am_team3 == 0) {
             // code...
         $query2 = "SELECT * FROM sale_check_in 
         WHERE appove_status = '02' AND (am_id = $emp_id ) 
@@ -275,7 +291,7 @@ echo "</table></p>
 }//-------- empty($_GET) -------
 
 
-elseif (!empty($_GET)) {
+if (!empty($_GET)) {
         // code...
     $dec1=$_GET['enc1'];
     $dec2=$_GET['enc2'];
@@ -338,111 +354,141 @@ elseif (!empty($_GET)) {
             ";
         }
     }
-    
-
-$stmt = $conn->query( $query );
-
-echo "<ul id='nav'>
-<li><a href='#'>รอรับทราบ(ลูกทีม)</a>
-<section>
-<p>";
-
-echo "
-<table class='table_h6' >
-<tr>
-<th>วันที่</th>
-<th>โรงพยาบาล</th>
-<th>แผนก</th>
-<th>เข้าพบ</th>
-<th>รายละเอียดเข้าพบ</th>
-<th>sale</th>
-<th>สถานะการตรวจของ AM</th>
-<th>comment</th>
-<th></th>
-</tr>
-";
-while ($row2 = $stmt->fetch(PDO::FETCH_ASSOC)){
-  echo "<td> ". date("d-m-Y H:i:s", strtotime($row2['chk_in'])) ." </td>";
-  echo "<td> ".$row2['hospital']." </td>";
-  echo "<td> ".$row2['department']." </td>";
-  echo "<td> ".$row2['person']." </td>";
-  echo "<td> ".$row2['info']." </td>";
-  echo "<td> ".$row2['username']." </td>";
-  switch ($row2['appove_status']) {
-      case "1" : echo "<td> รอรับทราบ </td>";
-      break;
-      case "2" : echo "<td> รับทราบแล้ว </td>";
-      break;
-  }
-  echo "<td> ".$row2['comment_am']." </td>";
-  echo "<td><a href=\"../SaleCheckIn/appove.php?ID=".iconv('TIS-620', 'UTF-8',$row2['id'])."\"> รับทราบ </a></td>";
-  echo "</tr>";
-} 
-
-echo "</table>
-</p>
-</section>
-</li>
-";
-/*-------รายการได้รับเลขแล้ว---------*/
-if ($am_team3 == 0) {
+    elseif ($emp_id == 420) {
             // code...
         if (!empty($dec1) && $dec2=="") {
         // code...
-            $query2 = "SELECT * FROM sale_check_in 
-            WHERE appove_status = '02' AND am_id = $emp_id AND (chk_in LIKE '%$dec1%')
+            $query = "SELECT * FROM sale_check_in 
+            WHERE appove_status = '01' AND ((username LIKE '%supharawee%') or (username LIKE '%navaporn%') or (username LIKE '%tonthip.p%')) AND (chk_in LIKE '%$dec1%') 
             ORDER BY id DESC
             ";
         }
         elseif ($dec1=="" && !empty($dec2)) {
         // code...
-            $query2 = "SELECT * FROM sale_check_in 
-            WHERE appove_status = '02' AND am_id = $emp_id AND (username LIKE '%$dec2%')
+            $query = "SELECT * FROM sale_check_in 
+            WHERE appove_status = '01' AND ((username LIKE '%supharawee%') or (username LIKE '%navaporn%') or (username LIKE '%tonthip.p%')) AND (username LIKE '%$dec2%') 
             ORDER BY id DESC
             ";
         }
         elseif ($dec2<>"" && $dec1<>"") {
         // code...
-            $query2 = "SELECT * FROM sale_check_in 
-            WHERE appove_status = '02' AND am_id = $emp_id AND (chk_in LIKE '%$dec1%' AND (username LIKE '%$dec2%' OR hospital LIKE '%$dec2%' OR department LIKE '%$dec2%'))
+            $query = "SELECT * FROM sale_check_in 
+            WHERE appove_status = '01' AND am_id = $emp_id AND (chk_in LIKE '%$dec1%' AND (username LIKE '%$dec2%' OR hospital LIKE '%$dec2%' OR department LIKE '%$dec2%')) 
             ORDER BY id DESC
             ";
         }
         elseif ($dec1 == NULL && $dec2 == NULL) {  
-            $query2 = "SELECT * FROM sale_check_in 
-            WHERE appove_status = '02' AND am_id = $emp_id
+            $query = "SELECT * FROM sale_check_in 
+            WHERE appove_status = '01' AND am_id = $emp_id
             ";
         }
     }
-    elseif ($am_team3 <> 0) {
+    
+    
+
+    $stmt = $conn->query( $query );
+
+    echo "<ul id='nav'>
+    <li><a href='#'>รอรับทราบ(ลูกทีม)</a>
+    <section>
+    <p>";
+
+    echo "
+    <table class='table_h6' >
+    <tr>
+    <th>วันที่</th>
+    <th>โรงพยาบาล</th>
+    <th>แผนก</th>
+    <th>เข้าพบ</th>
+    <th>รายละเอียดเข้าพบ</th>
+    <th>sale</th>
+    <th>สถานะการตรวจของ AM</th>
+    <th>comment</th>
+    <th></th>
+    </tr>
+    ";
+    while ($row2 = $stmt->fetch(PDO::FETCH_ASSOC)){
+      echo "<td> ". date("d-m-Y H:i:s", strtotime($row2['chk_in'])) ." </td>";
+      echo "<td> ".$row2['hospital']." </td>";
+      echo "<td> ".$row2['department']." </td>";
+      echo "<td> ".$row2['person']." </td>";
+      echo "<td> ".$row2['info']." </td>";
+      echo "<td> ".$row2['username']." </td>";
+      switch ($row2['appove_status']) {
+          case "1" : echo "<td> รอรับทราบ </td>";
+          break;
+          case "2" : echo "<td> รับทราบแล้ว </td>";
+          break;
+      }
+      echo "<td> ".$row2['comment_am']." </td>";
+      echo "<td><a href=\"../SaleCheckIn/appove.php?ID=".iconv('TIS-620', 'UTF-8',$row2['id'])."\"> รับทราบ </a></td>";
+      echo "</tr>";
+  } 
+
+  echo "</table>
+  </p>
+  </section>
+  </li>
+  ";
+  /*-------รายการได้รับเลขแล้ว---------*/
+  if ($am_team3 == 0) {
+            // code...
+    if (!empty($dec1) && $dec2=="") {
+        // code...
+        $query2 = "SELECT * FROM sale_check_in 
+        WHERE appove_status = '02' AND am_id = $emp_id AND (chk_in LIKE '%$dec1%')
+        ORDER BY id DESC
+        ";
+    }
+    elseif ($dec1=="" && !empty($dec2)) {
+        // code...
+        $query2 = "SELECT * FROM sale_check_in 
+        WHERE appove_status = '02' AND am_id = $emp_id AND (username LIKE '%$dec2%')
+        ORDER BY id DESC
+        ";
+    }
+    elseif ($dec2<>"" && $dec1<>"") {
+        // code...
+        $query2 = "SELECT * FROM sale_check_in 
+        WHERE appove_status = '02' AND am_id = $emp_id AND (chk_in LIKE '%$dec1%' AND (username LIKE '%$dec2%' OR hospital LIKE '%$dec2%' OR department LIKE '%$dec2%'))
+        ORDER BY id DESC
+        ";
+    }
+    elseif ($dec1 == NULL && $dec2 == NULL) {  
+        $query2 = "SELECT * FROM sale_check_in 
+        WHERE appove_status = '02' AND am_id = $emp_id
+        ";
+    }
+}
+elseif ($am_team3 <> 0) {
              // code...
-        if (!empty($dec1) && $dec2=="") {
+    if (!empty($dec1) && $dec2=="") {
         // code...
-            $query2 = "SELECT * FROM sale_check_in 
-            WHERE appove_status = '02' AND am_id_team3 = $am_team3 AND (chk_in LIKE '%$dec1%')
-            ORDER BY id DESC
-            ";
-        }
-        elseif ($dec1=="" && !empty($dec2)) {
-        // code...
-            $query2 = "SELECT * FROM sale_check_in 
-            WHERE appove_status = '02' AND am_id_team3 = $am_team3 AND (username LIKE '%$dec2%')
-            ORDER BY id DESC
-            ";
-        }
-        elseif ($dec2<>"" && $dec1<>"") {
-        // code...
-            $query2 = "SELECT * FROM sale_check_in 
-            WHERE appove_status = '02' AND am_id_team3 = $am_team3 AND (chk_in LIKE '%$dec1%' AND (username LIKE '%$dec2%' OR hospital LIKE '%$dec2%' OR department LIKE '%$dec2%'))
-            ORDER BY id DESC
-            ";
-        }
-        elseif ($dec1 == NULL && $dec2 == NULL) {  
-            $query2 = "SELECT * FROM sale_check_in 
-            WHERE appove_status = '02' AND am_id_team3 = $am_team3
-            ";
-        }
+        $query2 = "SELECT * FROM sale_check_in 
+        WHERE appove_status = '02' AND am_id_team3 = $am_team3 AND (chk_in LIKE '%$dec1%')
+        ORDER BY id DESC
+        ";
     }
+    elseif ($dec1=="" && !empty($dec2)) {
+        // code...
+        $query2 = "SELECT * FROM sale_check_in 
+        WHERE appove_status = '02' AND am_id_team3 = $am_team3 AND (username LIKE '%$dec2%')
+        ORDER BY id DESC
+        ";
+    }
+    elseif ($dec2<>"" && $dec1<>"") {
+        // code...
+        $query2 = "SELECT * FROM sale_check_in 
+        WHERE appove_status = '02' AND am_id_team3 = $am_team3 AND (chk_in LIKE '%$dec1%' AND (username LIKE '%$dec2%' OR hospital LIKE '%$dec2%' OR department LIKE '%$dec2%'))
+        ORDER BY id DESC
+        ";
+    }
+    elseif ($dec1 == NULL && $dec2 == NULL) {  
+        $query2 = "SELECT * FROM sale_check_in 
+        WHERE appove_status = '02' AND am_id_team3 = $am_team3
+        ";
+    }
+}
 
 
 $stmt2 = $conn->query( $query2 );

@@ -91,7 +91,7 @@
 					/////////////////////////////////////////////////////////////
 						$result_ = json_decode($result, true); 
 						echo "message : ". $result_['message'];
-						header("Location: http://192.168.0.7/admin/allodln.asp");
+						header("Location: http://192.168.0.7/datainput2.asp");
 					} 
 					curl_close( $chOne );   
 				
@@ -267,7 +267,7 @@
 							else { 
 								$result_ = json_decode($result, true); 
 								echo "message : ". $result_['message'];
-								header("Location: http://192.168.0.7/admin/allodln.asp");
+								header("Location: http://192.168.0.7/datainput2.asp");
 							} 
 							curl_close( $chOne );   
 	}

@@ -28,7 +28,7 @@ use PHPMailer\PHPMailer\PHPMailer;
 	if ($gb>=1.70 && $gb<=1.90)
 	{				
 					$sMessage = "Phase 1 Success Warning !!!!  \n Filesize after process ***\n $mboutput $gboutput \n***\n !!! PLEASE COMPACT !!! \n ";
-					$sMessage2 = "Warning !!!! ขนาดไฟล์ B2 ณ เวลา  $date \n***\n $mboutput $gboutput \n***\n !!! PLEASE COMPACT !!!";
+					$sMessage2 = "Warning !!!! ขนาดไฟล์ B2 ณ เวลา  $date \n***\n $mboutput $gboutput \n***\n !!! PLEASE COMPACT !!! \n\n NEXT DB02.ASP";
 					$chOne = curl_init(); 
 					curl_setopt( $chOne, CURLOPT_URL, "https://notify-api.line.me/api/notify"); 
 					curl_setopt( $chOne, CURLOPT_SSL_VERIFYHOST, 0); 
@@ -94,7 +94,7 @@ use PHPMailer\PHPMailer\PHPMailer;
 					/////////////////////////////////////////////////////////////
 						$result_ = json_decode($result, true); 
 						echo "message : ". $result_['message'];
-						//header("Location: http://192.168.0.7/datainput.asp");
+						//header("Location: http://192.168.0.7/admin/db02.asp");
 					} 
 					curl_close( $chOne );   
 				
@@ -103,7 +103,7 @@ use PHPMailer\PHPMailer\PHPMailer;
 	{
 				
 					$sMessage = "Phase 1 Success Alert !!!! \n Filesize after process ***\n $mboutput $gboutput \n***\n !!! COMPACT NOW !!! \n ";
-					$sMessage2 = "Phase 1 ALERT !!!! ขนาดไฟล์ B2 ณ เวลา  $date \n***\n $mboutput $gboutput \n***\n !!! COMPACT NOW !!!";
+					$sMessage2 = "Phase 1 ALERT !!!! ขนาดไฟล์ B2 ณ เวลา  $date \n***\n $mboutput $gboutput \n***\n !!! COMPACT NOW !!!\n\n NEXT DB02.ASP";
 					$chOne = curl_init(); 
 					curl_setopt( $chOne, CURLOPT_URL, "https://notify-api.line.me/api/notify"); 
 					curl_setopt( $chOne, CURLOPT_SSL_VERIFYHOST, 0); 
@@ -183,7 +183,7 @@ use PHPMailer\PHPMailer\PHPMailer;
 				while ($gb>=1.90)
 				{
 					$sMessage = "Phase 1  เตือนครั้งที่ $round_loop \n Success Alert !!!! \n Filesize after process ***\n $mboutput $gboutput \n***\n !!! COMPACT NOW !!! \n ";
-					$sMessage2 = "ALERT !!!! ขนาดไฟล์ B2 ณ เวลา  $date \n***\n $mboutput $gboutput \n***\n !!! COMPACT NOW !!!";
+					$sMessage2 = "ALERT !!!! ขนาดไฟล์ B2 ณ เวลา  $date \n***\n $mboutput $gboutput \n***\n !!! COMPACT NOW !!!\n\n NEXT DB02.ASP";
 					$chOne = curl_init(); 
 					curl_setopt( $chOne, CURLOPT_URL, "https://notify-api.line.me/api/notify"); 
 					curl_setopt( $chOne, CURLOPT_SSL_VERIFYHOST, 0); 
@@ -203,7 +203,7 @@ use PHPMailer\PHPMailer\PHPMailer;
 					else { 
 						$result_ = json_decode($result, true); 
 						echo "message : ". $result_['message'];
-						//header("Location: http://192.168.0.7/datainput.asp");
+						//header("Location: http://192.168.0.7/admin/db02.asp");
 					} 
 					curl_close( $chOne );
 					$fs= filesize($myfile);
@@ -215,7 +215,7 @@ use PHPMailer\PHPMailer\PHPMailer;
 	}
 	else
 	{
-							$sMessage = " Phase 1 Success Process \n Filesize after process ***\n $mboutput $gboutput \n***\n !!! PLEASE BEWARE of B2 files exceeding 1.9 GB. !!! \n ";
+							$sMessage = " Phase 1 Success Process \n Filesize after process ***\n $mboutput $gboutput \n***\n !!! PLEASE BEWARE of B2 files exceeding 1.9 GB. !!! \n\n NEXT DB02.ASP ";
 							$chOne = curl_init(); 
 							curl_setopt( $chOne, CURLOPT_URL, "https://notify-api.line.me/api/notify"); 
 							curl_setopt( $chOne, CURLOPT_SSL_VERIFYHOST, 0); 
@@ -235,10 +235,11 @@ use PHPMailer\PHPMailer\PHPMailer;
 							else { 
 								$result_ = json_decode($result, true); 
 								echo "message : ". $result_['message'];
-								//header("Location: http://192.168.0.7/datainput.asp");
+								//header("Location: http://192.168.0.7/admin/db02.asp");
 							} 
 							curl_close( $chOne );   
 	}
+	header("Location: http://192.168.0.7/admin/db02.asp");
 	echo "<script>NOPopup()</script>";
 	
 ?>
