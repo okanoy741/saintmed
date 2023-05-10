@@ -238,6 +238,17 @@ if(!isset($_SESSION["user"]) ){
                           while ($row2 = $stmt2->fetch(PDO::FETCH_ASSOC)){
                             echo "<h2 id='name-p' > ชื่องบ : ". iconv('TIS-620', 'UTF-8',$row2['name_p']) ." </h2>
                             <p> Status REQ. : ". iconv('TIS-620', 'UTF-8',$row2['sinfo']) ." </p>
+                            <p> AM Appove :". iconv('TIS-620', 'UTF-8',$row2['sinfo']) ." </p>
+                            ";
+
+                            if($row2['count_bm_appove'] <> 0 ){
+                              echo "<p> BM Appove : Appove";
+                            }
+                            elseif($row2['count_bm_appove'] == 0 ){
+                              echo "<p> BM Appove : In progress";
+                            }
+
+                            echo "
                             <p> สถานที่ส่งมอบ : ". iconv('TIS-620', 'UTF-8',$row2['location']) ."</p>
                             <p> วันที่ส่งมอบ :  ". date("d / m / Y", strtotime($row2['trans_date'])) ."</p>
                             ";

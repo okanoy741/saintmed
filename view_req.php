@@ -148,6 +148,17 @@ include "head.php";
 
                             echo "
                             <p> Status REQ. : ". iconv('TIS-620', 'UTF-8',$row2['sinfo']) ." </p>
+                            <p> AM Appove :". iconv('TIS-620', 'UTF-8',$row2['sinfo']) ." </p>
+                            ";
+
+                            if($row2['count_bm_appove'] <> 0 ){
+                              echo "<p> BM Appove : Appove";
+                            }
+                            elseif($row2['count_bm_appove'] == 0 ){
+                              echo "<p> BM Appove : In progress";
+                            }
+
+                            echo "
                             <p> หมายเลข PR :". iconv('TIS-620', 'UTF-8',$row2['pr_code']) ." </p>
                             <p> หมายเลข PO :". iconv('TIS-620', 'UTF-8',$row2['po_code']) ." </p>
                             <p> สถานที่ส่งมอบ : ". iconv('TIS-620', 'UTF-8',$row2['location']) ."</p>
