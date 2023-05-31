@@ -163,6 +163,7 @@ include "head.php";
                             <p> หมายเลข PO :". iconv('TIS-620', 'UTF-8',$row2['po_code']) ." </p>
                             <p> สถานที่ส่งมอบ : ". iconv('TIS-620', 'UTF-8',$row2['location']) ."</p>
                             <p> วันที่ส่งมอบ :  ". date("d / m / Y", strtotime($row2['trans_date'])) ."</p>
+                            <p> เงื่อนไขพิเศษ :". iconv('TIS-620', 'UTF-8',$row2['condition_id']) ." &nbsp; ". iconv('TIS-620', 'UTF-8',$row2['condition_info']) ."</p>
                             ";
                             echo "<table class='table_h' id='p_info'>
 

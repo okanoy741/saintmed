@@ -11,4 +11,9 @@ $conn3 = new PDO("sqlsrv:Server=192.168.0.2;Database=it_project","sa","$@intmed#
 //$conn = new PDO("sqlsrv:Server=saintmed.dyndns.biz,10143;Database=new_intra","saintmed_it","P@ssw0rd#1");	 
 $conn3->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
+$dbName4 = "\\192.168.0.17\data\req.mdb";
+$conn4 = new PDO("odbc:DRIVER={Microsoft Access Driver (*.mdb, *.accdb)};;Dbq=$dbName; charset=UTF-8");
+$conn4->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+
 ?>

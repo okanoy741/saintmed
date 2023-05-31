@@ -27,7 +27,7 @@ use PHPMailer\PHPMailer\PHPMailer;
 	$gboutput =  " ||| ".number_format($gb,2,'.','')." GB";
 	if ($gb>=1.70 && $gb<=1.90)
 	{				
-					$sMessage = "Phase 2 Success Warning !!!!  \n Filesize after process ***\n $mboutput $gboutput \n***\n !!! PLEASE COMPACT !!! \n ";
+					$sMessage = "Phase 2 Success Warning !!!!  \n Filesize after process ***\n $mboutput $gboutput \n***\n !!! PLEASE COMPACT !!! \n NEXT GET ALL BATCH TO SQL SERVER";
 					$sMessage2 = "Phase 2 Warning !!!! ขนาดไฟล์ B2 ณ เวลา  $date \n***\n $mboutput $gboutput \n***\n !!! PLEASE COMPACT !!!";
 					$chOne = curl_init(); 
 					curl_setopt( $chOne, CURLOPT_URL, "https://notify-api.line.me/api/notify"); 
@@ -102,7 +102,7 @@ use PHPMailer\PHPMailer\PHPMailer;
 	else if ($gb>=1.90)
 	{
 				
-					$sMessage = "Phase 2 Success Alert !!!! \n Filesize after process ***\n $mboutput $gboutput \n***\n !!! COMPACT NOW !!! \n ";
+					$sMessage = "Phase 2 Success Alert !!!! \n Filesize after process ***\n $mboutput $gboutput \n***\n !!! COMPACT NOW !!! \n NEXT GET ALL BATCH TO SQL SERVER ";
 					$sMessage2 = "Phase 2 ALERT !!!! ขนาดไฟล์ B2 ณ เวลา  $date \n***\n $mboutput $gboutput \n***\n !!! COMPACT NOW !!!";
 					$chOne = curl_init(); 
 					curl_setopt( $chOne, CURLOPT_URL, "https://notify-api.line.me/api/notify"); 
@@ -182,7 +182,7 @@ use PHPMailer\PHPMailer\PHPMailer;
 				$round_loop = 1;
 				while ($gb>=1.90)
 				{
-					$sMessage = "Phase 2  เตือนครั้งที่ $round_loop \n Success Alert !!!! \n Filesize after process ***\n $mboutput $gboutput \n***\n !!! COMPACT NOW !!! \n ";
+					$sMessage = "Phase 2  เตือนครั้งที่ $round_loop \n Success Alert !!!! \n Filesize after process ***\n $mboutput $gboutput \n***\n !!! COMPACT NOW !!! \n NEXT GET ALL BATCH TO SQL SERVER ";
 					$sMessage2 = "Phase 2 ALERT !!!! ขนาดไฟล์ B2 ณ เวลา  $date \n***\n $mboutput $gboutput \n***\n !!! COMPACT NOW !!!";
 					$chOne = curl_init(); 
 					curl_setopt( $chOne, CURLOPT_URL, "https://notify-api.line.me/api/notify"); 
@@ -215,7 +215,7 @@ use PHPMailer\PHPMailer\PHPMailer;
 	}
 	else
 	{
-							$sMessage = "Phase 2 Success Process \n Filesize after process ***\n $mboutput $gboutput \n***\n !!! PLEASE BEWARE of B2 files exceeding 1.9 GB. !!! \n ";
+							$sMessage = "Phase 2 Success Process \n Filesize after process ***\n $mboutput $gboutput \n***\n !!! PLEASE BEWARE of B2 files exceeding 1.9 GB. !!! \n NEXT GET ALL BATCH TO SQL SERVER";
 							$chOne = curl_init(); 
 							curl_setopt( $chOne, CURLOPT_URL, "https://notify-api.line.me/api/notify"); 
 							curl_setopt( $chOne, CURLOPT_SSL_VERIFYHOST, 0); 
@@ -239,6 +239,7 @@ use PHPMailer\PHPMailer\PHPMailer;
 							} 
 							curl_close( $chOne );   
 	}
+	header("Location: http://192.168.0.17/insert_req_sqlserver.asp");
 	echo "<script>NOPopup()</script>";
 	
 ?>
