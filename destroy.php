@@ -13,6 +13,7 @@ try {
 		$item11 = iconv('UTF-8', 'TIS-620',$_POST['item11']);
 		$itemcondi = iconv('UTF-8', 'TIS-620',$_POST['itemcondi']);
 		$itemconinfo = iconv('UTF-8', 'TIS-620',$_POST['itemconinfo']);
+		$deadLine = iconv('UTF-8', 'TIS-620',$_POST['deadLine']);
 
 		if(!empty($item8) && !empty($item7) && !empty($item9) && !empty($item10) && !empty($_POST['item11']) && !empty($_POST['itemcondi']) ){
 			$query3 = "UPDATE projects SET info = '$item7',name_p = '$item8', location = '$item9', trans_date = '$item10', h_sheet = '$item11', condition_id = '$itemcondi' WHERE ID = ".$_GET['ID']."";
@@ -77,9 +78,10 @@ try {
 		$item9 = iconv('UTF-8', 'TIS-620',$_POST['item9']);
 		$itemcondi = iconv('UTF-8', 'TIS-620',$_POST['itemcondi']);
 		$itemconinfo = iconv('UTF-8', 'TIS-620',$_POST['itemconinfo']);
+		$deadLine = iconv('UTF-8', 'TIS-620',$_POST['deadLine']);
 		
 		if(!empty($item8) && empty($item7) && !empty($item9) && empty($item10) ){
-			$query3 = "UPDATE projects SET name_p = '$item8', location = '$item9' , condition_id = '$itemcondi', condition_info = '$itemconinfo'  WHERE ID = ".$_GET['ID']."";
+			$query3 = "UPDATE projects SET name_p = '$item8', location = '$item9' , condition_id = '$itemcondi', condition_info = '$itemconinfo', deadLine = '$deadLine'  WHERE ID = ".$_GET['ID']."";
 			$stmt3 = $conn->query( $query3 );
 
 			$stmt3 = null;
@@ -87,7 +89,7 @@ try {
 			header("Location: edit_req.php?ID=".$_GET['ID']."&PID=". $_GET['PID']." ");
 		}
 		elseif(!empty($item8) && empty($item7) && !empty($item9) && !empty($item10) ){
-			$query3 = "UPDATE projects SET name_p = '$item8', location = '$item9', trans_date = '$item10', condition_id = '$itemcondi', condition_info = '$itemconinfo'  WHERE ID = ".$_GET['ID']."";
+			$query3 = "UPDATE projects SET name_p = '$item8', location = '$item9', trans_date = '$item10', condition_id = '$itemcondi', condition_info = '$itemconinfo', deadLine = '$deadLine'  WHERE ID = ".$_GET['ID']."";
 			$stmt3 = $conn->query( $query3 );
 
 			$stmt3 = null;
@@ -103,6 +105,8 @@ try {
 		$item10 = date("d-m-Y", strtotime($_POST['item10']. "+1086 years"));
 		$itemcondi = iconv('UTF-8', 'TIS-620',$_POST['itemcondi']);
 		$itemconinfo = iconv('UTF-8', 'TIS-620',$_POST['itemconinfo']);
+		$deadLine = iconv('UTF-8', 'TIS-620',$_POST['deadLine']);
+
 
 		if(!empty($item8) && empty($item7) && empty($item9) && empty($item10) ){
 			$query3 = "UPDATE projects SET name_p = '$item8', location = '$item9', condition_id = '$itemcondi', condition_info = '$itemconinfo'  WHERE ID = ".$_GET['ID']."";
@@ -123,15 +127,15 @@ try {
 			header("Location: edit_req.php?ID=".$_GET['ID']."&PID=". $_GET['PID']." ");
 		}
 		elseif(!empty($item8) && empty($item7) && !empty($item9) && empty($item10) ){
-			$query3 = "UPDATE projects SET name_p = '$item8', location = '$item9', condition_id = '$itemcondi', condition_info = '$itemconinfo'  WHERE ID = ".$_GET['ID']."";
+			$query3 = "UPDATE projects SET name_p = '$item8', location = '$item9', condition_id = '$itemcondi', condition_info = '$itemconinfo' , deadLine = '$deadLine'  WHERE ID = ".$_GET['ID']."";
 			$stmt3 = $conn->query( $query3 );
 
 			$stmt3 = null;
 			$conn = null;
 			header("Location: edit_req.php?ID=".$_GET['ID']."&PID=". $_GET['PID']." ");
 		}
-		elseif(!empty($item8) && empty($item7) && !empty($item9) && !empty($item10) ){
-			$query3 = "UPDATE projects SET name_p = '$item8', location = '$item9', trans_date = '$item10', condition_id = '$itemcondi', condition_info = '$itemconinfo'  WHERE ID = ".$_GET['ID']."";
+		elseif(!empty($item8) && empty($item7) && !empty($item9) && !empty($item10)){
+			$query3 = "UPDATE projects SET name_p = '$item8', location = '$item9', trans_date = '$item10', condition_id = '$itemcondi', condition_info = '$itemconinfo', deadLine = '$deadLine'  WHERE ID = ".$_GET['ID']."";
 			$stmt3 = $conn->query( $query3 );
 
 			$stmt3 = null;

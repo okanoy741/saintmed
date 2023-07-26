@@ -62,7 +62,7 @@
                                   echo "<td >". iconv('TIS-620','UTF-8' ,$row['uid']) ."</a>"."</td>";
 								 		echo "<td >". iconv('TIS-620','UTF-8' ,$row['userid']) ."</td>";
 							echo "<td >". iconv('TIS-620','UTF-8' ,$row['emp2id']) ."</td>";
-                                  echo "<td >"."<a href='\../user/updatePass.php?uid=".$row['username']."'>". iconv('TIS-620','UTF-8' ,$row['username']) ."</td>";
+                                  echo "<td >"."<a href='\../user/updatePass.php?uid=".$row['userid']."'>". iconv('TIS-620','UTF-8' ,$row['username']) ."</td>";
 								  
                                   echo "<td >". iconv('TIS-620','UTF-8' ,$row['pswd']) ."</td>";
                                   echo "<td >". iconv('TIS-620','UTF-8' ,$row['name']) ."</td>";
@@ -104,7 +104,7 @@
                             echo "<td >". iconv('TIS-620','UTF-8' ,$row2['uid']) ."</a>"."</td>";
 							echo "<td >". iconv('TIS-620','UTF-8' ,$row2['userid']) ."</td>";
 							echo "<td >". iconv('TIS-620','UTF-8' ,$row2['emp2id']) ."</td>";
-                            echo "<td >"."<a href='\../user/updatePass.php?uid=".$row2['username']."'>". iconv('TIS-620','UTF-8' ,$row2['username']) ."</td>";
+                            echo "<td >"."<a href='\../user/updatePass.php?uid=".$row2['userid']."'>". iconv('TIS-620','UTF-8' ,$row2['username']) ."</td>";
                             echo "<td >". iconv('TIS-620','UTF-8' ,$row2['pswd']) ."</td>";
                             echo "<td >". iconv('TIS-620','UTF-8' ,$row2['name']) ."</td>";
                             echo "<td >". iconv('TIS-620','UTF-8' ,$row2['lastname']) ."</td>";

@@ -51,8 +51,7 @@
                         	$query2 = "SELECT users.username , users.pswd , users.name , users.lastname ,employee2.abr, employee2.emloffice, employee2.uid
                         	FROM (users LEFT JOIN employee2
                              ON users.sales_code = employee2.abr)
-                             WHERE users.name Like '%".$_GET['uid']."%'  or users.username Like '%".$_GET['uid']."%'
-                             ";
+                             WHERE  users.id = ".$_GET['uid'];
                              $stmt2 = $conn->query( $query2 );
                              echo "<table class='table_h' >
                              <tr>

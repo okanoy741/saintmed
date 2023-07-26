@@ -6,7 +6,7 @@ include "head.php";
     <form name="search" action='../sale_admin/search.php?' method="POST">
 
         &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp <input name="search" type="text" id="serchBox" placeholder="---Search จากชื่อพนักงาน---"> <br><br>
-        &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp <a href='../sale_admin/chk_projects.php'> clear filter</a> <br>
+        &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp <a href='../sale_admin/chk_projects.php'> clear filter</a> <br><br><br>
     </form>
 </div>
 <div class="grid3">

@@ -72,6 +72,18 @@ try {
       $conn = null;
       header("Location: ../SaleCheckIn/indexAM.php?");
       break;
+      case "tanet" :
+      $stmt = null;
+      $stmt2 = null;
+      $conn = null;
+      header("Location: ../SaleCheckIn/indexAM.php?");
+      break;
+      case "thitirat" :
+      $stmt = null;
+      $stmt2 = null;
+      $conn = null;
+      header("Location: ../SaleCheckIn/indexAM.php?");
+      break;
       default : header("Location: ../SaleCheckIn/index.php?");
     }
   }

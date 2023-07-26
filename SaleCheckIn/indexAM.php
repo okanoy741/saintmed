@@ -33,7 +33,7 @@ include "head.php";
 ?>
 <div class="grid3">
     <br><br>
-    <p id ="headr2">รายการเข้าพบแพทย์ </p>
+    <p id ="headr2">รายการเข้าพบลูกค้า </p>
     <form name="search" action='../SaleCheckIn/search.php?' method="POST">
 
         <?php

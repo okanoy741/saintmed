@@ -69,7 +69,7 @@ elseif (!empty($_SESSION['USERNAME'])) {
 include "head.php";
 ?>
 <div class="grid3">
-    <p id ="headr2">รายการเข้าพบแพทย์ </p>
+    <p id ="headr2">รายการเข้าพบลูกค้า </p>
     <!-- <form name="search" action='../sale_admin/search.php?' method="POST">
 
         &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp <input name="search" type="text" id="serchBox" placeholder="---Search จากชื่อพนักงาน---"> <br><br>

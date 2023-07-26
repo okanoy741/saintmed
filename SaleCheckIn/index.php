@@ -109,6 +109,12 @@ session_start();
     $conn = null;
     header("Location: ../SaleCheckIn/indexAM.php?");
     break;
+    case "tanet" :
+    $stmt = null;
+    $stmt2 = null;
+    $conn = null;
+    header("Location: ../SaleCheckIn/indexAM.php?");
+    break;
   }
 
 /*if (empty($_SESSION['USERNAME']) ) { 

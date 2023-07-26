@@ -115,7 +115,10 @@ while ($row = $result->fetch(PDO::FETCH_ASSOC)){ // Important line !!! Check sum
     	$query2 = "select TOP 1 * from comments where table_name = 'alltrans' and table_row = ".$row['docnum']." order by ID DESC";
     	$result2 = $conn2->query( $query2 );
     	while ($row2 = $result2->fetch(PDO::FETCH_ASSOC)){
-    		echo " <td> ".iconv('TIS-620', 'UTF-8',$row2['table_col_value'])." </td> ";
+			$dateString = $row2['commentsdate']; // Assuming $row2['commentsdate'] is a string
+			$dateTime = new DateTime($dateString); // Create a DateTime object from the string
+			$dateFormatted = $dateTime->format('d/m/Y'); // Format the DateTime object
+    		echo " <td> ".$dateFormatted." ".iconv('TIS-620', 'UTF-8',$row2['table_col_value'])." </td> ";
     	};
     }
     elseif (empty($row['docnum'])) { echo " <td> - </td> "; }

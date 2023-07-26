@@ -25,6 +25,108 @@ if(!isset($_SESSION["user"]) ){
     echo "
     
     <p id ='headr'>สรุปและตรวจสอบรายการ</p> ";
+
+     echo "<div class='side_nav'>";
+    
+    if (empty($_GET['PID']) || empty($_GET['ID'])) { 
+      $message = "กรุณา! ขอเลขที่รหัสโครงการก่อน";
+      echo "<script type='text/javascript'>alert('$message');</script>";
+      header("Refresh:1; url=http://saintmed.dyndns.biz/sales/tender_list_sales.asp?"); 
+    }
+
+    elseif (!empty($_GET['PID'])){
+
+                        require_once "connect.php";  // Using database connection file here
+                        $query = "select TOP 1 *,statusReq.sid,statusReq.sinfo,employee2.ID,employee2.name,employee2.lastname
+                        FROM (((projects LEFT JOIN statusReq 
+                        ON projects.statusReq = statusReq.sid)
+                        LEFT JOIN employee2 
+                        ON projects.employee_id_fk = employee2.id)
+                        LEFT JOIN BplusData
+                        ON projects.client_id_fk = BplusData.ID)
+                        where projects.ID = ".$_GET['ID']."
+                        ";
+
+                        $stmt = $conn->query( $query );
+                        if( $conn->query( $query ) ){
+                          while ($row = $stmt->fetch(PDO::FETCH_ASSOC)){
+                            echo "<table class='table_show' ID='all_p'>
+                            <tr>
+                            <th>รหัสโครงการ</th>
+                            <td><h2>".iconv('TIS-620', 'UTF-8',$row['project_code1'])."</h2></td>
+                            </tr><tr>
+                            <th>ประกาศลงวันที่</th>
+                            <td> ". date("d-m-Y", strtotime($row['tender_date'])) ."</td>
+                            </tr>
+                            <tr>
+                            <th>วันที่เปิดซอง</th>
+                            <td>". date("d-m-Y", strtotime($row['qt_date'])) ."</td>
+                            </tr>
+                            <tr>
+                            <th>เรียกทำสัญญา</th>
+                            <td>". date("d-m-Y", strtotime($row['sign_date'])) ."</td>
+                            </tr>
+                            <tr>
+                            <th>โรงพยาบาล</th>
+                            <td>". iconv('TIS-620', 'UTF-8',$row['AR_NAME']) ."</td>
+                            </tr><tr>
+                            <th>เลขที่ประกาศ</th>
+                            <td>". iconv('TIS-620', 'UTF-8',$row['announ_code']) ." </td>
+                            </tr>
+                            <tr>
+                            <th>เอกสารประกวด/สอบราคาซื้อ</th>
+                            <td>". iconv('TIS-620', 'UTF-8',$row['tender_code']) ." </td>
+                            </tr><tr>
+                            <th>เลขที่สัญญาซื้อขาย</th>
+                            <td>". iconv('TIS-620', 'UTF-8',$row['pcode']) ." </td>
+                            </tr><tr>
+                            <th>งบกลาง</th>
+                            <td>". number_format($row['budget']) . " บาท </td>
+                            </tr><tr>
+                            <th>เครื่อง/รุ่น</th>
+                            <td>". iconv('TIS-620', 'UTF-8',$row['project_desc']) ." </td>
+                            </tr><tr>
+                            <th>จำนวน(เครื่อง)</th>
+                            <td>". $row['unitnum'] ." </td>
+                            </tr><tr>
+                            <th>ราคาต่อเครื่อง</th>
+                            <td>". number_format($row['unitprice']) ." บาท</td>
+                            </tr>
+                            <tr>
+                            <th>ราคาที่ได้งาน รวม Vat</th>
+                            <td>". number_format($row['pro_value']) ." บาท</td>
+                            </tr>
+                            <tr>
+                            <th>กำหนดส่งมอบ</th>
+                            <td>". $row['delidate'] ." <br> ". "หรือภายใน" ."  <br> ". $row['delitime'] ." ". "วัน" ." </td>
+                            </tr>
+                            <tr>
+                            <th>การรับประกัน</th>
+                            <td>". $row['waran'] ." ปี ". "<br>หรือเข้าซ่อมภายใน " ." <br> ". $row['onsite_within'] ."". " วัน" ." </td>
+                            </tr>
+                            <tr>
+                            <th>ผู้รับผิดชอบ</th>
+                            <td>". iconv('TIS-620', 'UTF-8',$row['name']) ." ". iconv('TIS-620', 'UTF-8',$row['lastname']) ." </td>
+                            </tr>
+                            <tr>
+                            <th>สถานะของงาน </th>
+                            <td>". iconv('TIS-620', 'UTF-8',$row['sinfo']) ."</td>
+                            </tr>
+                            <tr>
+                            <th>หมายเหตุ </th>
+                            <td>". iconv('TIS-620', 'UTF-8',$row['info']) ." </textarea></td>
+                            </tr>
+                            ";    
+
+                            echo "</tr>";
+                          } 
+
+
+                          echo "</table>";
+                        }
+                      }   
+                      $stmt = null;
+                      echo "</div>";
                     // Using database connection file here
     $query2 = "select TOP 1 *,statusReq.sid,statusReq.sinfo,employee2.ID,employee2.name,employee2.lastname
     FROM (((projects LEFT JOIN statusReq 
@@ -58,20 +160,21 @@ if(!isset($_SESSION["user"]) ){
         while ($row2 = $stmt2->fetch(PDO::FETCH_ASSOC)){
           echo "<h2 id='name-p' > ชื่องบ : ". iconv('TIS-620', 'UTF-8',$row2['name_p']) ." </h2>
           <p> Status REQ. : ". iconv('TIS-620', 'UTF-8',$row2['sinfo']) ." </p>
-          <p> AM Appove :". iconv('TIS-620', 'UTF-8',$row2['sinfo']) ." </p>
+          <p> AM Approve :". iconv('TIS-620', 'UTF-8',$row2['sinfo']) ." </p>
           ";
 
           if($row2['count_bm_appove'] <> 0 ){
-            echo "<p> BM Appove : Appove";
+            echo "<p> BM Approve : Approve";
           }
           elseif($row2['count_bm_appove'] == 0 ){
-            echo "<p> BM Appove : In progress";
+            echo "<p> BM Approve : In progress";
           }
 
           echo "
           <p> สถานที่ส่งมอบ : ". iconv('TIS-620', 'UTF-8',$row2['location']) ."</p>
           <p> วันที่ส่งมอบ :  ". date("d / m / Y", strtotime($row2['trans_date'])) ."</p>
           <p> เงื่อนไขพิเศษ :". iconv('TIS-620', 'UTF-8',$row2['condition_id']) ." &nbsp; ". iconv('TIS-620', 'UTF-8',$row2['condition_info']) ."</p>
+          <p> สาเหตุที่ไม่ทำ REQ. ใน 14 วัน : ". iconv('TIS-620', 'UTF-8',$row2['deadLine']) ." </p>
           ";
 
           echo "<table class='table_h' id='p_info'>

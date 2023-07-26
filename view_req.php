@@ -148,14 +148,14 @@ include "head.php";
 
                             echo "
                             <p> Status REQ. : ". iconv('TIS-620', 'UTF-8',$row2['sinfo']) ." </p>
-                            <p> AM Appove :". iconv('TIS-620', 'UTF-8',$row2['sinfo']) ." </p>
+                            <p> AM Approve :". iconv('TIS-620', 'UTF-8',$row2['sinfo']) ." </p>
                             ";
 
                             if($row2['count_bm_appove'] <> 0 ){
-                              echo "<p> BM Appove : Appove";
+                              echo "<p> BM Approve : Approve";
                             }
                             elseif($row2['count_bm_appove'] == 0 ){
-                              echo "<p> BM Appove : In progress";
+                              echo "<p> BM Approve : In progress";
                             }
 
                             echo "
@@ -164,6 +164,7 @@ include "head.php";
                             <p> สถานที่ส่งมอบ : ". iconv('TIS-620', 'UTF-8',$row2['location']) ."</p>
                             <p> วันที่ส่งมอบ :  ". date("d / m / Y", strtotime($row2['trans_date'])) ."</p>
                             <p> เงื่อนไขพิเศษ :". iconv('TIS-620', 'UTF-8',$row2['condition_id']) ." &nbsp; ". iconv('TIS-620', 'UTF-8',$row2['condition_info']) ."</p>
+                            <p> สาเหตุที่ไม่ทำ REQ. ใน 14 วัน : ". iconv('TIS-620', 'UTF-8',$row2['deadLine']) ." </p>
                             ";
                             echo "<table class='table_h' id='p_info'>
 
@@ -187,7 +188,7 @@ include "head.php";
                             <th>จำนวน</th>
                             <th>ราคา:หน่วย</th>
                             <th>เลขที่ใบยืม</th>
-                            <th>Appove By</th>
+                            <th>Approve By</th>
                             <th>อย.</th>
                             </tr>";
 
@@ -275,7 +276,7 @@ include "head.php";
 
 
                               echo "<div class='wrap-btn'>";
-                              echo "<a href=\"sendAP_req.php?ID=".$_GET['ID']."&PID=".$_GET['PID']."&MA=$manager \"><input class='btn_req' type='submit' value='ส่งเพื่อขอรับการ Appove'></a>";
+                              echo "<a href=\"sendAP_req.php?ID=".$_GET['ID']."&PID=".$_GET['PID']."&MA=$manager \"><input class='btn_req' type='submit' value='ส่งเพื่อขอรับการ Approve'></a>";
                               echo "<a href=\"edit_req.php?ID=".$_GET['ID']."&PID=".$_GET['PID']."& \"><input class='btn_req' type='submit' value='แก้ไข Requisition'></a>";
                               echo "<input class='btn_req' type='submit' ID='create_excel' value='Export to Excel'>";
                               echo "</div>";

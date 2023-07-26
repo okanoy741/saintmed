@@ -10,6 +10,25 @@ if(!isset($_SESSION["user"]) ){
   exit;
 }
 ?>
+<script>
+        // JavaScript code to handle dynamic search
+  const input = document.querySelector('.itemName');
+  const datalist = document.querySelector('#itemName');
+  const options = datalist.querySelectorAll('option');
+
+  input.addEventListener('input', function () {
+    const userInput = input.value.toLowerCase();
+    for (const option of options) {
+      const optionValue = option.value.toLowerCase();
+      const optionLabel = option.innerText.toLowerCase();
+      if (optionValue.includes(userInput) || optionLabel.includes(userInput)) {
+        option.style.display = '';
+      } else {
+        option.style.display = 'none';
+      }
+    }
+  });
+</script>
 
 <div class="grid1">
 
@@ -110,6 +129,9 @@ if(!isset($_SESSION["user"]) ){
                               ";    
 
                               echo "</tr>";
+
+                              $duedate = date("d-m-Y", strtotime($row['qt_date']));
+                              $now = date("d-m-Y");
                             }
 
                             elseif($row['statusReq'] = 12){
@@ -221,7 +243,9 @@ if(!isset($_SESSION["user"]) ){
                       </form> 
 
 
+
                       <div class = 'name-wrap'> ";
+
 
                       echo "<form action='destroy.php?ID=".$_GET['ID']."&PID=". $_GET['PID']."' method='POST'>";
   // Using database connection file here
@@ -247,7 +271,7 @@ if(!isset($_SESSION["user"]) ){
                       $stmt = $conn->query( $query );
 
                       if( $conn->query( $query ) ){
-                        if($_GET['ID']){
+                        if($_GET['ID'] ){
 
                           while ($row2 = $stmt2->fetch(PDO::FETCH_ASSOC)){
                             echo "<h2 id='name-p'> ชื่องบ : <input type='text' id='itemname2'  name='item8' value ='". iconv('TIS-620', 'UTF-8',$row2['name_p']) ."'> </h2>
@@ -267,6 +291,21 @@ if(!isset($_SESSION["user"]) ){
                             <input type='checkbox' id='myCheck' onclick='myFunction()'> อื่นๆ(กรอกเงื่อนไขที่ไม่พบ)
                             <input class='cReg2_btn' type='text' name='itemconinfo' value='". iconv('TIS-620', 'UTF-8',$row2['condition_info']) ."' disabled='true'></p> 
                             ";
+
+                            $date1= date_create("$duedate");
+                            $date2= date_create(" $now ");
+
+                            $diff = $date1->diff($date2);
+                            $days = $diff->days;
+                            /*echo "$days" ;*/
+                            switch ($days) {
+                              case ($days > 14) : echo "<p> สาเหตุที่ไม่ทำ REQ. ใน 14 วัน : <input type='text' id='itemname2' name='deadLine' value ='". iconv('TIS-620', 'UTF-8',$row2['deadLine']) ."' required ></p>";
+                              break;
+                              case ($days < 14) : echo "<p> สาเหตุที่ไม่ทำ REQ. ใน 14 วัน : <input type='text' id='itemname2' name='deadLine' value ='". iconv('TIS-620', 'UTF-8',$row2['deadLine']) ."' disabled ></p>";
+                              break;
+
+                            }
+
 
                             echo "  <input class='btn_name-p' type='submit' value='บันทึก'>";
 
